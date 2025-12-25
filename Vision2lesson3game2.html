@@ -1,0 +1,172 @@
+<meta name='viewport' content='width=device-width, initial-scale=1'/><!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Lesson 3 - Game 2 | Best Answer</title>
+
+<style>
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #0f172a;
+  color: #fff;
+}
+
+.container {
+  max-width: 900px;
+  margin: auto;
+  padding: 40px 20px;
+}
+
+h1 {
+  text-align: center;
+}
+
+.question {
+  background: #1e293b;
+  border-radius: 16px;
+  padding: 20px;
+  margin-bottom: 20px;
+  box-shadow: inset 4px 4px 10px #0b1220,
+              inset -4px -4px 10px #253455;
+}
+
+.question p {
+  font-size: 18px;
+}
+
+.options button {
+  display: block;
+  width: 100%;
+  margin-top: 10px;
+  padding: 12px;
+  border: none;
+  border-radius: 12px;
+  background: #334155;
+  color: #fff;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.options button:hover {
+  background: #8f5cff;
+}
+
+#result {
+  margin-top: 30px;
+  font-size: 22px;
+  text-align: center;
+}
+
+#nextBtn {
+  display: none;
+  margin: 30px auto 0;
+  padding: 14px 30px;
+  font-size: 18px;
+  background: linear-gradient(135deg, #22d3ee, #8f5cff);
+  color: #fff;
+  border: none;
+  border-radius: 14px;
+  cursor: pointer;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+  <h1>Lesson 3 – Game 2</h1>
+  <p style="text-align:center; opacity:.8">Choose the best answer</p>
+
+  <!-- Question 1 -->
+  <div class="question">
+    <p>1. What is culture?</p>
+    <div class="options">
+      <button onclick="check(this,false)">Only food and music</button>
+      <button onclick="check(this,true)">Shared beliefs, customs, and behaviors</button>
+      <button onclick="check(this,false)">Only holidays and clothing</button>
+    </div>
+  </div>
+
+  <!-- Question 2 -->
+  <div class="question">
+    <p>2. Why are there many different cultures in the world?</p>
+    <div class="options">
+      <button onclick="check(this,true)">Because people have different beliefs and ways of living</button>
+      <button onclick="check(this,false)">Because people live in the same way</button>
+      <button onclick="check(this,false)">Because all countries are the same</button>
+    </div>
+  </div>
+
+  <!-- Question 3 -->
+  <div class="question">
+    <p>3. How do people usually live?</p>
+    <div class="options">
+      <button onclick="check(this,false)">According to other cultures</button>
+      <button onclick="check(this,true)">According to what they believe is right and wrong</button>
+      <button onclick="check(this,false)">Without beliefs or customs</button>
+    </div>
+  </div>
+
+  <!-- Question 4 -->
+  <div class="question">
+    <p>4. Why is respecting other cultures important?</p>
+    <div class="options">
+      <button onclick="check(this,true)">It helps us learn about the world</button>
+      <button onclick="check(this,false)">It changes our culture</button>
+      <button onclick="check(this,false)">It removes differences</button>
+    </div>
+  </div>
+
+  <!-- Question 5 -->
+  <div class="question">
+    <p>5. What is a good way to learn about other cultures?</p>
+    <div class="options">
+      <button onclick="check(this,false)">Ignoring them</button>
+      <button onclick="check(this,true)">Reading about them</button>
+      <button onclick="check(this,false)">Judging them</button>
+    </div>
+  </div>
+
+  <div id="result"></div>
+  <button id="nextBtn" onclick="goNext()">Go to Game 3 ✅</button>
+</div>
+
+<script>
+let score = 0;
+let answered = 0;
+
+function check(button, correct) {
+  const box = button.closest(".question");
+  if (box.classList.contains("done")) return;
+
+  box.classList.add("done");
+  answered++;
+
+  if (correct) {
+    score += 10;
+    button.style.background = "#22c55e";
+  } else {
+    button.style.background = "#ef4444";
+  }
+
+  if (answered === 5) {
+    document.getElementById("result").innerHTML =
+      "Your Score: <b>" + score + " / 50</b>";
+
+    localStorage.setItem("lesson3game2Score", score);
+
+    if (score >= 40) {
+      localStorage.setItem("lesson3game3Unlocked", "true");
+      document.getElementById("nextBtn").style.display = "block";
+    }
+  }
+}
+
+function goNext() {
+  window.location.href = "lesson3game3.html";
+}
+</script>
+
+</body>
+</html>

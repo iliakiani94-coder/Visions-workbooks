@@ -1,0 +1,144 @@
+<meta name='viewport' content='width=device-width, initial-scale=1'/><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Lesson 4 - Game 3 (Missing Words)</title>
+    <style>
+        body {
+            background-color: #0f0f1a;
+            color: #ffffff;
+            font-family: Arial, sans-serif;
+            padding: 30px;
+        }
+
+        .container {
+            max-width: 850px;
+            margin: auto;
+            background: #1a1a2e;
+            padding: 30px;
+            border-radius: 15px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #ffd166;
+            margin-bottom: 30px;
+        }
+
+        .question {
+            margin-bottom: 20px;
+        }
+
+        input {
+            padding: 8px;
+            border-radius: 10px;
+            border: none;
+            width: 200px;
+        }
+
+        button {
+            padding: 10px 25px;
+            margin-top: 25px;
+            border: none;
+            border-radius: 25px;
+            background: #3a86ff;
+            color: #ffffff;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            opacity: 0.85;
+        }
+
+        .result {
+            margin-top: 25px;
+            text-align: center;
+            font-size: 18px;
+        }
+
+        .next {
+            display: none;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .next a {
+            color: #06d6a0;
+            text-decoration: none;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Lesson 4 – Game 3<br>Missing Words</h1>
+
+    <div class="question">
+        <p>1. Travel is about visiting new places and meeting new ______.</p>
+        <input id="q1" type="text">
+    </div>
+
+    <div class="question">
+        <p>2. Before traveling, we must read about tourist ______.</p>
+        <input id="q2" type="text">
+    </div>
+
+    <div class="question">
+        <p>3. Learning local language helps us meet new ______.</p>
+        <input id="q3" type="text">
+    </div>
+
+    <div class="question">
+        <p>4. Travelers must respect historical and ______ places.</p>
+        <input id="q4" type="text">
+    </div>
+
+    <div class="question">
+        <p>5. We must protect plants and wild ______.</p>
+        <input id="q5" type="text">
+    </div>
+
+    <div style="text-align:center;">
+        <button onclick="checkAnswers()">Check Answers</button>
+    </div>
+
+    <div class="result" id="result"></div>
+
+    <div class="next" id="next">
+        ✅ <a href="lesson4game4.html">Go to Game 4</a>
+    </div>
+</div>
+
+<script>
+function checkAnswers() {
+    let score = 0;
+
+    const answers = [
+        "people",
+        "attractions",
+        "people",
+        "holy",
+        "animals"
+    ];
+
+    for (let i = 1; i <= 5; i++) {
+        const userAnswer = document.getElementById("q" + i).value.trim().toLowerCase();
+        if (userAnswer === answers[i - 1]) {
+            score += 10;
+        }
+    }
+
+    document.getElementById("result").innerHTML =
+        "Your Score: <strong>" + score + "/50</strong>";
+
+    localStorage.setItem("lesson4_game3_score", score);
+    localStorage.setItem("lesson4_game4_unlocked", "true");
+
+    document.getElementById("next").style.display = "block";
+}
+</script>
+
+</body>
+</html>

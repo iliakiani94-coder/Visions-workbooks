@@ -1,0 +1,206 @@
+<meta name='viewport' content='width=device-width, initial-scale=1'/><!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lesson 3 – Game 2 (Best Answer)</title>
+
+<style>
+  body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: radial-gradient(circle at top, #2d1b4f, #0b0820);
+    color: white;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .game-box {
+    width: 90%;
+    max-width: 720px;
+    background: rgba(255,255,255,0.08);
+    border-radius: 24px;
+    padding: 28px 24px 36px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+    text-align: center;
+  }
+
+  h1 {
+    margin-bottom: 8px;
+  }
+
+  #question {
+    font-size: 18px;
+    margin: 22px 0;
+    line-height: 1.6;
+  }
+
+  .option {
+    display: block;
+    margin: 12px auto;
+    padding: 12px 24px;
+    max-width: 420px;
+    background: linear-gradient(135deg, #7f5af0, #ff7ac6);
+    border-radius: 30px;
+    border: none;
+    color: white;
+    font-size: 15px;
+    cursor: pointer;
+  }
+
+  .option:hover {
+    opacity: 0.9;
+  }
+
+  #feedback {
+    margin-top: 14px;
+    font-size: 17px;
+    min-height: 24px;
+  }
+
+  .score {
+    margin-top: 8px;
+    font-size: 15px;
+    opacity: 0.9;
+  }
+
+  .next-btn {
+    display: none;
+    margin: 26px auto 0;
+    padding: 14px 34px;
+    background: linear-gradient(135deg, #00c9a7, #5af0c8);
+    color: #002;
+    font-weight: bold;
+    border-radius: 30px;
+    text-decoration: none;
+  }
+</style>
+</head>
+
+<body>
+
+<div class="game-box">
+  <h1>Best Answer</h1>
+
+  <div id="question"></div>
+
+  <div id="options"></div>
+
+  <div id="feedback"></div>
+  <div class="score">Score: <span id="score">0</span></div>
+
+  <a href="lesson3game3.html" class="next-btn" id="nextGame">
+    Go to Game 3 →
+  </a>
+</div>
+
+<script>
+const questions = [
+  {
+    q: "What does a scientist do?",
+    options: [
+      "Studies the world and solves problems",
+      "Plays games all day",
+      "Only teaches students"
+    ],
+    answer: 0
+  },
+  {
+    q: "Which of these can a scientist study?",
+    options: [
+      "Only animals",
+      "Plants, people, or history",
+      "Only cars"
+    ],
+    answer: 1
+  },
+  {
+    q: "How do scientists learn about the world?",
+    options: [
+      "By guessing",
+      "By observing and experimenting",
+      "By sleeping"
+    ],
+    answer: 1
+  },
+  {
+    q: "Why do some scientists make new things?",
+    options: [
+      "To become famous",
+      "To make people’s lives easier",
+      "To travel the world"
+    ],
+    answer: 1
+  },
+  {
+    q: "When do scientists feel successful?",
+    options: [
+      "When they solve problems",
+      "When they are rich",
+      "When people know their faces"
+    ],
+    answer: 0
+  },
+  {
+    q: "Who studies how people learn and behave?",
+    options: [
+      "Some scientists",
+      "Drivers",
+      "Artists"
+    ],
+    answer: 0
+  }
+];
+
+let current = 0;
+let score = 0;
+
+const questionEl = document.getElementById("question");
+const optionsEl = document.getElementById("options");
+const feedbackEl = document.getElementById("feedback");
+const scoreEl = document.getElementById("score");
+const nextBtn = document.getElementById("nextGame");
+
+function loadQuestion() {
+  const q = questions[current];
+  questionEl.textContent = q.q;
+  optionsEl.innerHTML = "";
+  feedbackEl.textContent = "";
+
+  q.options.forEach((opt, i) => {
+    const btn = document.createElement("button");
+    btn.className = "option";
+    btn.textContent = opt;
+    btn.onclick = () => checkAnswer(i);
+    optionsEl.appendChild(btn);
+  });
+}
+
+function checkAnswer(selected) {
+  if (selected === questions[current].answer) {
+    feedbackEl.textContent = "✅ Correct!";
+    score += 10;
+    scoreEl.textContent = score;
+  } else {
+    feedbackEl.textContent = "❌ Wrong!";
+  }
+
+  current++;
+
+  if (current < questions.length) {
+    setTimeout(loadQuestion, 900);
+  } else {
+    feedbackEl.textContent = "🎉 Game Completed!";
+    nextBtn.style.display = "inline-block";
+    localStorage.setItem("lesson3_score_game2", score);
+    localStorage.setItem("lesson3_game3_unlocked", "true");
+  }
+}
+
+loadQuestion();
+</script>
+
+</body>
+</html>

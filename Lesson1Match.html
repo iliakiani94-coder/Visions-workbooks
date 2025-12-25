@@ -1,0 +1,108 @@
+<meta name='viewport' content='width=device-width, initial-scale=1'/><!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Match Game</title>
+
+<style>
+body{
+    font-family:Arial;
+    background:radial-gradient(circle at top,#020617,#000);
+    color:white;
+    padding:30px;
+}
+.container{
+    max-width:800px;
+    margin:auto;
+    background:rgba(255,255,255,0.08);
+    padding:30px;
+    border-radius:30px;
+}
+h1{text-align:center;color:#a78bfa;}
+select,button{
+    margin-top:8px;
+    padding:8px 15px;
+    border-radius:12px;
+    border:none;
+}
+button{background:#a78bfa;color:black;cursor:pointer;}
+.correct{color:#4ade80;}
+.wrong{color:#f87171;}
+.back{text-align:center;margin-top:30px;}
+</style>
+</head>
+
+<body>
+<div class="container">
+<h1>📖 Match</h1>
+
+<div>1. See hunters → 
+<select id="q1">
+<option>Choose...</option>
+<option>Call the police</option>
+<option>Feed animals</option>
+<option>Ignore</option>
+</select>
+<button onclick="check('q1','Call the police','r1')">Check</button><p id="r1"></p></div>
+
+<div>2. Visit a wildlife park → 
+<select id="q2">
+<option>Choose...</option>
+<option>Learn about animals</option>
+<option>Buy clothes</option>
+<option>Play games</option>
+</select>
+<button onclick="check('q2','Learn about animals','r2')">Check</button><p id="r2"></p></div>
+
+<div>3. Keep nature clean → 
+<select id="q3">
+<option>Choose...</option>
+<option>Animals live longer</option>
+<option>Animals die</option>
+<option>No effect</option>
+</select>
+<button onclick="check('q3','Animals live longer','r3')">Check</button><p id="r3"></p></div>
+
+<div>4. Protect forests → 
+<select id="q4">
+<option>Choose...</option>
+<option>Help wildlife</option>
+<option>Hurt animals</option>
+<option>Waste time</option>
+</select>
+<button onclick="check('q4','Help wildlife','r4')">Check</button><p id="r4"></p></div>
+
+<div>5. Teach people → 
+<select id="q5">
+<option>Choose...</option>
+<option>Be careful about nature</option>
+<option>Ignore animals</option>
+<option>Hunt more</option>
+</select>
+<button onclick="check('q5','Be careful about nature','r5')">Check</button><p id="r5"></p></div>
+
+<div>6. Voluntary work → 
+<select id="q6">
+<option>Choose...</option>
+<option>Help animals</option>
+<option>Hurt nature</option>
+<option>Stop learning</option>
+</select>
+<button onclick="check('q6','Help animals','r6')">Check</button><p id="r6"></p></div>
+
+<div class="back">
+<a href="lesson1-games.html"><button>⬅ Back to Games</button></a>
+</div>
+</div>
+
+<script>
+function check(q,a,r){
+ const u=document.getElementById(q).value;
+ document.getElementById(r).innerHTML=
+ (u===a)? "<span class='correct'>Correct ✅</span>"
+        : "<span class='wrong'>Wrong ❌</span>";
+}
+</script>
+
+</body>
+</html>

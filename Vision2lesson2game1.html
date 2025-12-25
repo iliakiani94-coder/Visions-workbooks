@@ -1,0 +1,167 @@
+<meta name='viewport' content='width=device-width, initial-scale=1'/><!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Lesson 2 - Game 1 | True / False</title>
+
+<style>
+body{
+  margin:0;
+  background:#020617;
+  color:#e5e7eb;
+  font-family:Arial,sans-serif;
+}
+
+.container{
+  max-width:800px;
+  margin:40px auto;
+  background:rgba(30,41,59,0.6);
+  backdrop-filter:blur(10px);
+  padding:30px;
+  border-radius:20px;
+  box-shadow:0 0 25px rgba(147,51,234,0.35);
+}
+
+h1{
+  text-align:center;
+  color:#a5f3fc;
+  margin-bottom:30px;
+}
+
+.question{
+  margin-bottom:25px;
+}
+
+.question p{
+  font-size:18px;
+}
+
+.options button{
+  margin:8px 10px 0 0;
+  padding:8px 20px;
+  border:none;
+  border-radius:10px;
+  font-size:16px;
+  cursor:pointer;
+  background:#334155;
+  color:#fff;
+}
+
+.options button:hover{
+  background:#475569;
+}
+
+.correct{ background:#16a34a !important; }
+.wrong{ background:#dc2626 !important; }
+
+#result{
+  text-align:center;
+  font-size:22px;
+  margin-top:30px;
+  color:#facc15;
+}
+
+.next{
+  display:none;
+  text-align:center;
+  margin-top:30px;
+}
+
+.next a{
+  padding:12px 30px;
+  background:linear-gradient(135deg,#7c3aed,#06b6d4);
+  color:#fff;
+  text-decoration:none;
+  border-radius:14px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+<h1>Lesson 2 – True / False</h1>
+
+<div class="question" data-answer="true">
+<p>1. Modern technology has made communication faster.</p>
+<div class="options">
+<button onclick="check(this,true)">True</button>
+<button onclick="check(this,false)">False</button>
+</div>
+</div>
+
+<div class="question" data-answer="false">
+<p>2. Using mobile phones for a long time can improve sleep quality.</p>
+<div class="options">
+<button onclick="check(this,true)">True</button>
+<button onclick="check(this,false)">False</button>
+</div>
+</div>
+
+<div class="question" data-answer="true">
+<p>3. Playing video games for many hours may harm people’s nervous system.</p>
+<div class="options">
+<button onclick="check(this,true)">True</button>
+<button onclick="check(this,false)">False</button>
+</div>
+</div>
+
+<div class="question" data-answer="false">
+<p>4. Technology addicts enjoy spending time with many people.</p>
+<div class="options">
+<button onclick="check(this,true)">True</button>
+<button onclick="check(this,false)">False</button>
+</div>
+</div>
+
+<div class="question" data-answer="true">
+<p>5. Listening to music with headsets can damage hearing.</p>
+<div class="options">
+<button onclick="check(this,true)">True</button>
+<button onclick="check(this,false)">False</button>
+</div>
+</div>
+
+<div id="result"></div>
+
+<div class="next" id="nextBtn">
+<a href="lesson2game2.html">➡ Go to Game 2</a>
+</div>
+</div>
+
+<script>
+let score = 0;
+let answered = 0;
+
+function check(btn,choice){
+  const q = btn.closest('.question');
+  if(q.classList.contains('done')) return;
+
+  q.classList.add('done');
+  answered++;
+
+  const correct = q.dataset.answer === String(choice);
+
+  if(correct){
+    score += 10;
+    btn.classList.add('correct');
+  }else{
+    btn.classList.add('wrong');
+  }
+
+  if(answered === 5){
+    document.getElementById('result')
+      .innerText = `Your Score: ${score} / 50`;
+
+    localStorage.setItem('lesson2_game1', score);
+
+    if(score >= 40){
+      localStorage.setItem('lesson2_game2_unlocked', 'true');
+      document.getElementById('nextBtn').style.display = 'block';
+    }
+  }
+}
+</script>
+
+</body>
+</html>

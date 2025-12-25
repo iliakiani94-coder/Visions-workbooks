@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Lesson 2 - Game 2 (Best Answer)</title>
+
+<style>
+body{
+  margin:0;
+  font-family:Arial, sans-serif;
+  background: radial-gradient(circle at top, #1a0033, #000);
+  color:#fff;
+  text-align:center;
+}
+
+.container{
+  max-width:750px;
+  margin:50px auto;
+  background:rgba(255,255,255,0.07);
+  padding:30px;
+  border-radius:20px;
+  box-shadow:0 0 25px rgba(160,0,255,0.4);
+}
+
+h1{
+  color:#f0c8ff;
+}
+
+.question{
+  font-size:20px;
+  margin:25px 0 15px;
+}
+
+.option{
+  display:block;
+  width:80%;
+  margin:12px auto;
+  padding:14px;
+  font-size:16px;
+  border:none;
+  border-radius:25px;
+  cursor:pointer;
+  background:linear-gradient(135deg,#6a00ff,#ff00cc);
+  color:#fff;
+  box-shadow:0 0 15px rgba(255,0,204,0.4);
+  transition:0.3s;
+}
+
+.option:hover{
+  transform:scale(1.05);
+}
+
+#result{
+  margin:18px;
+  font-size:18px;
+}
+
+#score{
+  margin-top:10px;
+  color:#ffd6ff;
+}
+
+.back-btn{
+  display:inline-block;
+  margin-top:30px;
+  padding:10px 25px;
+  background:#222;
+  border-radius:20px;
+  text-decoration:none;
+  color:#fff;
+}
+.back-btn:hover{
+  background:#333;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+  <h1>Lesson 2 – Game 2</h1>
+  <h3>Choose the Best Answer</h3>
+
+  <div class="question" id="questionText"></div>
+
+  <div id="options"></div>
+
+  <div id="result"></div>
+  <div id="score">Score: 0</div>
+
+  <a class="back-btn" href="lesson2-games.html">Back to Games</a>
+</div>
+
+<script>
+const questions = [
+  {
+    question: "Microbes are found…",
+    options: ["only in water", "everywhere", "only inside animals"],
+    correct: 1
+  },
+  {
+    question: "Most microbes…",
+    options: ["are harmful", "are helpful", "do nothing"],
+    correct: 1
+  },
+  {
+    question: "Bacteria are…",
+    options: ["many-celled", "one-celled", "not alive"],
+    correct: 1
+  },
+  {
+    question: "Viruses are…",
+    options: ["larger than bacteria", "smaller than bacteria", "plants"],
+    correct: 1
+  },
+  {
+    question: "Viruses cannot live…",
+    options: ["in air", "alone", "in water"],
+    correct: 1
+  },
+  {
+    question: "Viruses usually…",
+    options: ["help digestion", "make us sick", "clean the body"],
+    correct: 1
+  }
+];
+
+let current = 0;
+let score = 0;
+let answered = false;
+
+const questionText = document.getElementById("questionText");
+const optionsBox = document.getElementById("options");
+const result = document.getElementById("result");
+const scoreBox = document.getElementById("score");
+
+function showQuestion(){
+  answered = false;
+  result.textContent = "";
+  questionText.textContent = questions[current].question;
+  optionsBox.innerHTML = "";
+
+  questions[current].options.forEach((opt, index)=>{
+    const btn = document.createElement("button");
+    btn.className = "option";
+    btn.textContent = opt;
+    btn.onclick = () => checkAnswer(index);
+    optionsBox.appendChild(btn);
+  });
+}
+
+function checkAnswer(index){
+  if(answered) return;
+  answered = true;
+
+  if(index === questions[current].correct){
+    result.textContent = "✅ Correct!";
+    result.style.color = "#7CFF7C";
+    score += 10;
+  }else{
+    result.textContent = "❌ Wrong!";
+    result.style.color = "#FF7C7C";
+  }
+
+  scoreBox.textContent = "Score: " + score;
+
+  setTimeout(()=>{
+    current++;
+    if(current < questions.length){
+      showQuestion();
+    }else{
+      questionText.textContent = "🎉 Game Finished!";
+      optionsBox.innerHTML = "";
+      result.textContent = "Final Score: " + score;
+    }
+  },1200);
+}
+
+showQuestion();
+</script>
+
+</body>
+</html>

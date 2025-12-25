@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Lesson 2 - Game 4 (Match)</title>
+
+<style>
+body{
+  margin:0;
+  font-family:Arial, sans-serif;
+  background: radial-gradient(circle at top, #1a0033, #000);
+  color:#fff;
+  text-align:center;
+}
+
+.container{
+  max-width:900px;
+  margin:40px auto;
+  background:rgba(255,255,255,0.07);
+  padding:30px;
+  border-radius:20px;
+  box-shadow:0 0 25px rgba(160,0,255,0.4);
+}
+
+h1{ color:#f0c8ff; }
+
+.match-wrapper{
+  display:flex;
+  justify-content:space-between;
+  margin-top:30px;
+}
+
+.column{
+  width:45%;
+}
+
+.item{
+  background:linear-gradient(135deg,#6a00ff,#ff00cc);
+  padding:14px;
+  margin:12px 0;
+  border-radius:22px;
+  cursor:pointer;
+  box-shadow:0 0 12px rgba(255,0,204,0.4);
+  transition:0.3s;
+}
+
+.item:hover{
+  transform:scale(1.05);
+}
+
+.selected{
+  outline:3px solid #fff;
+}
+
+.correct{
+  background:linear-gradient(135deg,#00c853,#64dd17);
+}
+
+.wrong{
+  background:linear-gradient(135deg,#d50000,#ff1744);
+}
+
+#result{
+  margin-top:20px;
+  font-size:18px;
+}
+
+#score{
+  margin-top:10px;
+  color:#ffd6ff;
+}
+
+.back-btn{
+  display:inline-block;
+  margin-top:30px;
+  padding:10px 25px;
+  background:#222;
+  border-radius:20px;
+  text-decoration:none;
+  color:#fff;
+}
+.back-btn:hover{ background:#333; }
+</style>
+</head>
+
+<body>
+
+<div class="container">
+  <h1>Lesson 2 – Game 4</h1>
+  <h3>Match the Sentences</h3>
+
+  <div class="match-wrapper">
+    <div class="column" id="left"></div>
+    <div class="column" id="right"></div>
+  </div>
+
+  <div id="result"></div>
+  <div id="score">Score: 0</div>
+
+  <a class="back-btn" href="lesson2-games.html">Back to Games</a>
+</div>
+
+<script>
+const pairs = [
+  { left:"Microbes", right:"are everywhere" },
+  { left:"Bacteria", right:"have only one cell" },
+  { left:"Viruses", right:"are smaller than bacteria" },
+  { left:"Good microbes", right:"keep us healthy" },
+  { left:"Bad microbes", right:"make us sick" },
+  { left:"Viruses", right:"need living cells to grow" }
+];
+
+let selectedLeft = null;
+let selectedRight = null;
+let score = 0;
+let matched = 0;
+
+const leftBox = document.getElementById("left");
+const rightBox = document.getElementById("right");
+const scoreBox = document.getElementById("score");
+const result = document.getElementById("result");
+
+/* Shuffle function */
+function shuffle(arr){
+  return arr.sort(()=>Math.random()-0.5);
+}
+
+const leftItems = shuffle([...pairs]);
+const rightItems = shuffle([...pairs]);
+
+leftItems.forEach(item=>{
+  const div=document.createElement("div");
+  div.className="item";
+  div.textContent=item.left;
+  div.dataset.match=item.right;
+  div.onclick=()=>selectLeft(div);
+  leftBox.appendChild(div);
+});
+
+rightItems.forEach(item=>{
+  const div=document.createElement("div");
+  div.className="item";
+  div.textContent=item.right;
+  div.dataset.match=item.right;
+  div.onclick=()=>selectRight(div);
+  rightBox.appendChild(div);
+});
+
+function selectLeft(el){
+  if(el.classList.contains("correct")) return;
+  clearSelection();
+  selectedLeft = el;
+  el.classList.add("selected");
+}
+
+function selectRight(el){
+  if(el.classList.contains("correct")) return;
+  if(!selectedLeft) return;
+
+  selectedRight = el;
+  checkMatch();
+}
+
+function clearSelection(){
+  document.querySelectorAll(".selected").forEach(e=>e.classList.remove("selected"));
+}
+
+function checkMatch(){
+  if(selectedLeft.dataset.match === selectedRight.dataset.match){
+    selectedLeft.classList.add("correct");
+    selectedRight.classList.add("correct");
+    score += 10;
+    matched++;
+    result.textContent = "✅ Correct Match!";
+    result.style.color = "#7CFF7C";
+  }else{
+    selectedLeft.classList.add("wrong");
+    selectedRight.classList.add("wrong");
+    result.textContent = "❌ Wrong Match";
+    result.style.color = "#FF7C7C";
+    setTimeout(()=>{
+      selectedLeft.classList.remove("wrong");
+      selectedRight.classList.remove("wrong");
+    },800);
+  }
+
+  scoreBox.textContent = "Score: " + score;
+  clearSelection();
+  selectedLeft = null;
+  selectedRight = null;
+
+  if(matched === pairs.length){
+    result.textContent = "🎉 Game Finished! Final Score: " + score;
+  }
+}
+</script>
+
+</body>
+</html>

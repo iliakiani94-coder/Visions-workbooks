@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Lesson 2 - Game 1 (True / False)</title>
+
+<style>
+body{
+  margin:0;
+  font-family:Arial, sans-serif;
+  background: radial-gradient(circle at top, #1a0033, #000);
+  color:#fff;
+  text-align:center;
+}
+
+.container{
+  max-width:700px;
+  margin:50px auto;
+  background:rgba(255,255,255,0.07);
+  padding:30px;
+  border-radius:20px;
+  box-shadow:0 0 25px rgba(160,0,255,0.4);
+}
+
+h1{
+  color:#f0c8ff;
+}
+
+.question{
+  font-size:20px;
+  margin:30px 0;
+}
+
+button{
+  padding:12px 28px;
+  margin:10px;
+  font-size:17px;
+  border:none;
+  border-radius:25px;
+  cursor:pointer;
+  background:linear-gradient(135deg,#6a00ff,#ff00cc);
+  color:#fff;
+  box-shadow:0 0 15px rgba(255,0,204,0.5);
+  transition:0.3s;
+}
+
+button:hover{
+  transform:scale(1.07);
+}
+
+#result{
+  margin:20px;
+  font-size:18px;
+}
+
+#score{
+  margin-top:15px;
+  color:#ffd6ff;
+}
+
+.back-btn{
+  display:inline-block;
+  margin-top:30px;
+  padding:10px 25px;
+  background:#222;
+  border-radius:20px;
+  text-decoration:none;
+  color:#fff;
+}
+.back-btn:hover{
+  background:#333;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+  <h1>Lesson 2 – Game 1</h1>
+  <h3>True / False</h3>
+
+  <div class="question" id="questionText"></div>
+
+  <button onclick="checkAnswer(true)">True</button>
+  <button onclick="checkAnswer(false)">False</button>
+
+  <div id="result"></div>
+  <div id="score">Score: 0</div>
+
+  <a class="back-btn" href="lesson2-games.html">Back to Games</a>
+</div>
+
+<script>
+const questions = [
+  { text: "Microbes are very large and easy to see.", answer: false },
+  { text: "Some microbes help keep us healthy.", answer: true },
+  { text: "Bacteria have only one cell.", answer: true },
+  { text: "All bacteria are dangerous.", answer: false },
+  { text: "Viruses are smaller than bacteria.", answer: true },
+  { text: "Viruses need a living cell to grow.", answer: true }
+];
+
+let current = 0;
+let score = 0;
+
+const questionText = document.getElementById("questionText");
+const result = document.getElementById("result");
+const scoreBox = document.getElementById("score");
+
+function showQuestion(){
+  questionText.textContent = questions[current].text;
+  result.textContent = "";
+}
+
+function checkAnswer(userAnswer){
+  if(userAnswer === questions[current].answer){
+    result.textContent = "✅ Correct!";
+    result.style.color = "#7CFF7C";
+    score += 10;
+  }else{
+    result.textContent = "❌ Wrong!";
+    result.style.color = "#FF7C7C";
+  }
+
+  scoreBox.textContent = "Score: " + score;
+
+  setTimeout(()=>{
+    current++;
+    if(current < questions.length){
+      showQuestion();
+    }else{
+      questionText.textContent = "🎉 Game Finished!";
+      result.textContent = "Final Score: " + score;
+    }
+  },1000);
+}
+
+showQuestion();
+</script>
+
+</body>
+</html>

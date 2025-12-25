@@ -1,0 +1,202 @@
+<meta name='viewport' content='width=device-width, initial-scale=1'/><!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Lesson 1 – Reading Games (Grade 12)</title>
+
+<style>
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f7fb;
+  margin: 0;
+  padding: 30px 15px;
+}
+
+h1 {
+  text-align: center;
+  color: #1f2937;
+  margin-bottom: 25px;
+}
+
+.menu {
+  max-width: 750px;
+  margin: 0 auto 30px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 15px;
+}
+
+.menu button {
+  padding: 18px;
+  font-size: 16px;
+  background-color: #1e3a8a;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.menu button:hover {
+  background-color: #1e40af;
+}
+
+.game-box {
+  max-width: 750px;
+  margin: auto;
+  background-color: #ffffff;
+  padding: 28px;
+  border-radius: 12px;
+  display: none;
+}
+
+.q-number {
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.options button {
+  display: block;
+  margin: 10px 0;
+  padding: 12px;
+  width: 100%;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.correct { color: green; }
+.wrong { color: crimson; }
+
+.back {
+  margin-top: 25px;
+  display: inline-block;
+  color: #1e3a8a;
+  cursor: pointer;
+}
+</style>
+</head>
+
+<body>
+
+<h1>Lesson 1 – Reading Games<br>(Grade 12)</h1>
+
+<div class="menu">
+  <button onclick="startGame(vocab)">Vocabulary in Context</button>
+  <button onclick="startGame(tf)">True / False</button>
+  <button onclick="startGame(mainIdea)">Main Idea & Purpose</button>
+  <button onclick="startGame(match)">Sentence & Idea Matching</button>
+</div>
+
+<div id="game" class="game-box"></div>
+
+<script>
+const gameBox = document.getElementById("game");
+let questions = [];
+let index = 0;
+let score = 0;
+
+/* ========== VOCABULARY (10) ========== */
+const vocab = [
+ {q:"Elders were kids like us and now have grown ____.", a:["young","old","strong"], c:1},
+ {q:"They have many life ____.", a:["experiences","problems","rules"], c:0},
+ {q:"They _____ respect.", a:["ignore","deserve","refuse"], c:1},
+ {q:"They share successes and ____.", a:["failures","plans","careers"], c:0},
+ {q:"Respect and care start with our ____.", a:["teachers","parents","friends"], c:1},
+ {q:"Parents are our first ____.", a:["neighbors","teachers","students"], c:1},
+ {q:"We must love them ____.", a:["sometimes","unconditionally","rarely"], c:1},
+ {q:"They feel honored when we ____ them.", a:["appreciate","forget","avoid"], c:0},
+ {q:"It is our duty to ____ elders.", a:["help","judge","ignore"], c:0},
+ {q:"They are not young enough to ____ things alone.", a:["handle","create","change"], c:0}
+];
+
+/* ========== TRUE / FALSE (10) ========== */
+const tf = [
+ {q:"Elders were born elders.", c:false},
+ {q:"We will grow old in the future.", c:true},
+ {q:"Respecting elders affects future generations.", c:true},
+ {q:"Elders have nothing to share with us.", c:false},
+ {q:"Parents are our first teachers.", c:true},
+ {q:"Elders always can handle things like before.", c:false},
+ {q:"They love us unconditionally.", c:true},
+ {q:"Respect for elders starts outside the family.", c:false},
+ {q:"Elders feel honored when appreciated.", c:true},
+ {q:"Helping elders is our duty.", c:true}
+];
+
+/* ========== MAIN IDEA (10) ========== */
+const mainIdea = [
+ {q:"What is the main idea of the text?", a:["Ignoring elders","Respecting elders","Elders' jobs"], c:1},
+ {q:"Why should we respect elders?", a:["They ask us","They have experience","They are rich"], c:1},
+ {q:"Who teaches respect first?", a:["School","Parents","Friends"], c:1},
+ {q:"Respect today results in ____ tomorrow.", a:["fear","future values","punishment"], c:1},
+ {q:"Tone of the passage is:", a:["Advisory","Angry","Funny"], c:0},
+ {q:"The text mainly discusses:", a:["Culture and respect","Science","Sports"], c:0},
+ {q:"Who benefits from respecting elders?", a:["Only elders","Everyone","No one"], c:1},
+ {q:"Author’s attitude toward elders is:", a:["Negative","Respectful","Uncaring"], c:1},
+ {q:"Core message focuses on:", a:["Duty","Money","Power"], c:0},
+ {q:"Best title for the text:", a:["Value of Respect","Modern Life","Growing Fast"], c:0}
+];
+
+/* ========== MATCHING / LOGICAL (10) ========== */
+const match = [
+ {q:"Respect elders → ?", a:["Future respect","Nothing","Weakness"], c:0},
+ {q:"Life experiences → ?", a:["Knowledge","Fear","Age"], c:0},
+ {q:"Parents → ?", a:["First teachers","Last teachers","Strangers"], c:0},
+ {q:"Appreciation → ?", a:["Honor","Anger","Distance"], c:0},
+ {q:"Unconditional love → ?", a:["Limit","Care","Punishment"], c:1},
+ {q:"Growing old → ?", a:["Never happens","Future reality","Mistake"], c:1},
+ {q:"Helping elders → ?", a:["Duty","Insult","Waste"], c:0},
+ {q:"Respect today → ?", a:["Forgetfulness","Future values","Loss"], c:1},
+ {q:"Elders cannot handle things because:", a:["Age","Laziness","Choice"], c:0},
+ {q:"Respect begins with:", a:["Family","Street","Media"], c:0}
+];
+
+function startGame(list) {
+  questions = list;
+  index = 0;
+  score = 0;
+  gameBox.style.display = "block";
+  showQuestion();
+}
+
+function showQuestion() {
+  if (index >= questions.length) {
+    gameBox.innerHTML = `
+      <h3>Finished ✅</h3>
+      <p>Your Score: <b>${score} / 10</b></p>
+      <div class="back" onclick="exitGame()">← Back to menu</div>
+    `;
+    return;
+  }
+
+  const q = questions[index];
+  let html = `<div class="q-number">Question ${index+1} of 10</div><p>${q.q}</p><div class="options">`;
+
+  if (q.a) {
+    q.a.forEach((opt,i)=>{
+      html += `<button onclick="answer(${i === q.c})">${opt}</button>`;
+    });
+  } else {
+    html += `
+      <button onclick="answer(${q.c === true})">True</button>
+      <button onclick="answer(${q.c === false})">False</button>
+    `;
+  }
+
+  html += `</div>`;
+  gameBox.innerHTML = html;
+}
+
+function answer(correct) {
+  if (correct) score++;
+  index++;
+  showQuestion();
+}
+
+function exitGame() {
+  gameBox.style.display = "none";
+}
+</script>
+
+</body>
+</html>

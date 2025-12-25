@@ -1,0 +1,208 @@
+<meta name='viewport' content='width=device-width, initial-scale=1'/><!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Lesson 2 Games – Using a Dictionary</title>
+<style>
+body {
+  font-family: Arial, sans-serif;
+  background: #f4f6fb;
+  margin: 0;
+  padding: 0;
+}
+header {
+  background: #2f3e9e;
+  color: #fff;
+  padding: 20px;
+  text-align: center;
+}
+.container {
+  max-width: 900px;
+  margin: 30px auto;
+  background: #fff;
+  padding: 25px;
+  border-radius: 8px;
+}
+.menu button {
+  margin: 5px;
+  padding: 10px 18px;
+  font-size: 14px;
+  cursor: pointer;
+  border: none;
+  border-radius: 6px;
+  background: #3b5bdb;
+  color: white;
+}
+.menu button:hover {
+  background: #2f3e9e;
+}
+.question {
+  margin: 15px 0;
+}
+.options label {
+  display: block;
+  margin: 5px 0;
+}
+.result {
+  font-weight: bold;
+  margin-top: 15px;
+}
+.hidden {
+  display: none;
+}
+</style>
+</head>
+
+<body>
+<header>
+  <h1>Lesson 2 – Using a Dictionary</h1>
+  <p>Grade 12 | Reading Comprehension Games</p>
+</header>
+
+<div class="container">
+  <div class="menu">
+    <button onclick="showGame('vocab')">Vocabulary</button>
+    <button onclick="showGame('tf')">True / False</button>
+    <button onclick="showGame('main')">Main Idea</button>
+    <button onclick="showGame('match')">Matching</button>
+  </div>
+
+  <!-- Vocabulary -->
+  <div id="vocab" class="hidden">
+    <h2>Vocabulary in Context</h2>
+    <form id="vocabForm"></form>
+    <button onclick="checkVocab()">Submit</button>
+    <p id="vocabResult" class="result"></p>
+  </div>
+
+  <!-- True False -->
+  <div id="tf" class="hidden">
+    <h2>True / False</h2>
+    <form id="tfForm"></form>
+    <button onclick="checkTF()">Submit</button>
+    <p id="tfResult" class="result"></p>
+  </div>
+
+  <!-- Main Idea -->
+  <div id="main" class="hidden">
+    <h2>Main Idea & Purpose</h2>
+    <form id="mainForm"></form>
+    <button onclick="checkMain()">Submit</button>
+    <p id="mainResult" class="result"></p>
+  </div>
+
+  <!-- Matching -->
+  <div id="match" class="hidden">
+    <h2>Matching</h2>
+    <form id="matchForm"></form>
+    <button onclick="checkMatch()">Submit</button>
+    <p id="matchResult" class="result"></p>
+  </div>
+</div>
+
+<script>
+function showGame(id) {
+  document.querySelectorAll('.container > div:not(.menu)').forEach(d => d.classList.add('hidden'));
+  document.getElementById(id).classList.remove('hidden');
+}
+
+// Vocabulary Questions
+const vocabQs = [
+ {q:"The word 'dictionary' originally comes from which language?", o:["Greek","Latin","Persian","Arabic"], a:1},
+ {q:"Words arranged in dictionaries are usually in … order.", o:["numerical","random","alphabetical","historical"], a:2},
+ {q:"IPA is used to show …", o:["spelling","meanings","pronunciation","origin"], a:2},
+ {q:"A dictionary that explains technical terms is called …", o:["biography","technical","general","bilingual"], a:1},
+ {q:"A dictionary that gives word meanings provides a …", o:["translation","definition","story","example"], a:1},
+ {q:"Which word can be adjective, noun, and verb?", o:["right","present","left","dictionary"], a:1},
+ {q:"‘Bazaar’ entered English from …", o:["Latin","Arabic","Persian","Greek"], a:2},
+ {q:"A dictionary explaining meanings and usage is a … dictionary.", o:["visual","monolingual","biographical","technical"], a:1},
+ {q:"The opposite meaning of ‘left’ is one meaning of …", o:["present","right","correct","origin"], a:1},
+ {q:"To choose the correct meaning, one must be …", o:["fast","careful","creative","young"], a:1}
+];
+
+// True False
+const tfQs = [
+ {q:"Dictionaries explain only the meanings of words.", a:false},
+ {q:"Words in dictionaries are arranged alphabetically.", a:true},
+ {q:"IPA shows the translation of words.", a:false},
+ {q:"Some dictionaries translate in both directions.", a:true},
+ {q:"The word 'right' has only one meaning.", a:false},
+ {q:"Biographical dictionaries talk about famous people.", a:true},
+ {q:"All dictionaries are technical.", a:false},
+ {q:"‘Present’ can be used as a noun.", a:true},
+ {q:"Dictionary comes from a Latin word.", a:true},
+ {q:"Persian words have influenced English.", a:true}
+];
+
+// Main Idea
+const mainQs = [
+ {q:"The main purpose of the text is to …", o:["tell a story","explain dictionaries","compare languages","teach grammar"], a:1},
+ {q:"The passage mainly discusses …", o:["history of books","types and uses of dictionaries","famous people","learning Persian"], a:1},
+ {q:"Why should users be careful using dictionaries?", o:["They are expensive","Words have many meanings","They are old","They are technical"], a:1},
+ {q:"What does the writer emphasize about good dictionaries?", o:["They are small","They list all meanings","They are colorful","They are digital"], a:1},
+ {q:"Which idea best summarizes paragraph 3?", o:["Translations are difficult","Dictionaries give extra info","Words come from Persian","IPA is useless"], a:1},
+ {q:"The passage suggests dictionaries help people …", o:["memorize texts","choose correct meanings","speak faster","avoid mistakes"], a:1},
+ {q:"What is the writer’s attitude?", o:["Critical","Informative","Humorous","Emotional"], a:1},
+ {q:"The example of ‘right’ shows …", o:["pronunciation","multiple meanings","translation","origin"], a:1},
+ {q:"Which idea connects the whole passage?", o:["Respect books","Understanding words","Learning Latin","Using schools"], a:1},
+ {q:"The text is written mainly for …", o:["scientists","students and learners","historians","poets"], a:1}
+];
+
+// Matching
+const matchQs = [
+ {q:"IPA", o:["pronunciation","origin","translation"], a:0},
+ {q:"Biography dictionary", o:["technical terms","famous people","meanings"], a:1},
+ {q:"Bilingual dictionary", o:["one language","two languages","pictures"], a:1},
+ {q:"‘Bazaar’", o:["Latin word","Greek word","Persian word"], a:2},
+ {q:"Alphabetical", o:["random order","time order","letter order"], a:2},
+ {q:"Definition", o:["example","meaning","sound"], a:1},
+ {q:"Technical dictionary", o:["stories","science words","poems"], a:1},
+ {q:"Origin of words", o:["how pronounced","where from","how used"], a:1},
+ {q:"‘Present’", o:["one meaning","many meanings","no verb"], a:1},
+ {q:"Good dictionary", o:["few meanings","all meanings","pictures only"], a:1}
+];
+
+function render(formId, qs, type="mc") {
+ const form=document.getElementById(formId);
+ form.innerHTML="";
+ qs.forEach((x,i)=>{
+  let html=`<div class="question"><p>${i+1}. ${x.q}</p><div class="options">`;
+  if(type==="tf"){
+    html+=`
+    <label><input type="radio" name="q${i}" value="true"> True</label>
+    <label><input type="radio" name="q${i}" value="false"> False</label>`;
+  } else {
+    x.o.forEach((opt,j)=>{
+      html+=`<label><input type="radio" name="q${i}" value="${j}"> ${opt}</label>`;
+    });
+  }
+  html+="</div></div>";
+  form.innerHTML+=html;
+ });
+}
+
+render("vocabForm",vocabQs);
+render("tfForm",tfQs,"tf");
+render("mainForm",mainQs);
+render("matchForm",matchQs);
+
+function check(formId, qs, type, resultId){
+ let score=0;
+ qs.forEach((x,i)=>{
+  const ans=document.querySelector(`input[name="q${i}"]:checked`);
+  if(ans){
+   if(type==="tf" && String(x.a)===ans.value) score++;
+   if(type!=="tf" && Number(ans.value)===x.a) score++;
+  }
+ });
+ document.getElementById(resultId).innerText=`Score: ${score} / 10`;
+}
+
+function checkVocab(){check("vocabForm",vocabQs,"mc","vocabResult");}
+function checkTF(){check("tfForm",tfQs,"tf","tfResult");}
+function checkMain(){check("mainForm",mainQs,"mc","mainResult");}
+function checkMatch(){check("matchForm",matchQs,"mc","matchResult");}
+</script>
+
+</body>
+</html>

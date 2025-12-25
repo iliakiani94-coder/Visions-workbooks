@@ -1,0 +1,203 @@
+<meta name='viewport' content='width=device-width, initial-scale=1'/><!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lesson 3 – Game 4 (Matching)</title>
+
+<style>
+  body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: radial-gradient(circle at top, #2d1b4f, #0b0820);
+    color: white;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .game-box {
+    width: 92%;
+    max-width: 800px;
+    background: rgba(255,255,255,0.08);
+    border-radius: 24px;
+    padding: 30px 24px 36px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+    text-align: center;
+  }
+
+  h1 {
+    margin-bottom: 18px;
+  }
+
+  .match-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    margin-top: 20px;
+  }
+
+  .column {
+    width: 48%;
+  }
+
+  .item {
+    margin: 10px 0;
+    padding: 12px 16px;
+    background: linear-gradient(135deg, #7f5af0, #ff7ac6);
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 15px;
+  }
+
+  .item.selected {
+    outline: 3px solid #5af0c8;
+  }
+
+  .item.matched {
+    background: linear-gradient(135deg, #00c9a7, #5af0c8);
+    color: #002;
+    cursor: default;
+  }
+
+  #feedback {
+    margin-top: 18px;
+    font-size: 17px;
+    min-height: 24px;
+  }
+
+  .score {
+    margin-top: 8px;
+    font-size: 15px;
+  }
+
+  .finish-btn {
+    display: none;
+    margin: 26px auto 0;
+    padding: 14px 36px;
+    background: linear-gradient(135deg, gold, orange);
+    color: #402800;
+    font-weight: bold;
+    border-radius: 30px;
+    text-decoration: none;
+  }
+</style>
+</head>
+
+<body>
+
+<div class="game-box">
+  <h1>Matching</h1>
+  <p>Tap one item from each column to match them.</p>
+
+  <div class="match-container">
+    <div class="column" id="leftCol"></div>
+    <div class="column" id="rightCol"></div>
+  </div>
+
+  <div id="feedback"></div>
+  <div class="score">Score: <span id="score">0</span></div>
+
+  <a href="lesson3games.html" class="finish-btn" id="finishBtn">
+    Finish Lesson 3 ✅
+  </a>
+</div>
+
+<script>
+const pairs = [
+  { left: "Scientist", right: "Studies the world" },
+  { left: "Experiment", right: "A way to find answers" },
+  { left: "Observe", right: "Look carefully" },
+  { left: "Invent", right: "Make something new" },
+  { left: "Successful", right: "Solves problems" },
+  { left: "Research", right: "Study to discover facts" }
+];
+
+let score = 0;
+let selectedLeft = null;
+let selectedRight = null;
+
+const leftCol = document.getElementById("leftCol");
+const rightCol = document.getElementById("rightCol");
+const feedbackEl = document.getElementById("feedback");
+const scoreEl = document.getElementById("score");
+const finishBtn = document.getElementById("finishBtn");
+
+function shuffle(arr) {
+  return arr.sort(() => Math.random() - 0.5);
+}
+
+function createItems() {
+  shuffle(pairs).forEach(p => {
+    const div = document.createElement("div");
+    div.className = "item";
+    div.textContent = p.left;
+    div.dataset.match = p.right;
+    div.onclick = () => selectLeft(div);
+    leftCol.appendChild(div);
+  });
+
+  shuffle(pairs).forEach(p => {
+    const div = document.createElement("div");
+    div.className = "item";
+    div.textContent = p.right;
+    div.dataset.match = p.left;
+    div.onclick = () => selectRight(div);
+    rightCol.appendChild(div);
+  });
+}
+
+function selectLeft(item) {
+  if (item.classList.contains("matched")) return;
+  clearSelection("left");
+  selectedLeft = item;
+  item.classList.add("selected");
+  checkMatch();
+}
+
+function selectRight(item) {
+  if (item.classList.contains("matched")) return;
+  clearSelection("right");
+  selectedRight = item;
+  item.classList.add("selected");
+  checkMatch();
+}
+
+function clearSelection(side) {
+  const selector = side === "left" ? "#leftCol .item" : "#rightCol .item";
+  document.querySelectorAll(selector).forEach(i => i.classList.remove("selected"));
+}
+
+function checkMatch() {
+  if (!selectedLeft || !selectedRight) return;
+
+  if (selectedLeft.dataset.match === selectedRight.textContent) {
+    selectedLeft.classList.add("matched");
+    selectedRight.classList.add("matched");
+    score += 10;
+    scoreEl.textContent = score;
+    feedbackEl.textContent = "✅ Correct match!";
+  } else {
+    feedbackEl.textContent = "❌ Try again!";
+  }
+
+  selectedLeft.classList.remove("selected");
+  selectedRight.classList.remove("selected");
+  selectedLeft = null;
+  selectedRight = null;
+
+  const matchedItems = document.querySelectorAll(".matched").length;
+  if (matchedItems === pairs.length * 2) {
+    feedbackEl.textContent = "🎉 Lesson 3 Completed!";
+    finishBtn.style.display = "inline-block";
+    localStorage.setItem("lesson3_score_game4", score);
+    localStorage.setItem("lesson3_completed", "true");
+  }
+}
+
+createItems();
+</script>
+
+</body>
+</html>

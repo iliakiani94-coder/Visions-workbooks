@@ -1,0 +1,135 @@
+<meta name='viewport' content='width=device-width, initial-scale=1'/><!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Lesson 1 - Game 1 (True / False)</title>
+
+<style>
+body{
+    margin:0;
+    font-family:Arial, sans-serif;
+    background:radial-gradient(circle at top,#1a1a2e,#0f0f1a);
+    color:#fff;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    min-height:100vh;
+}
+
+.container{
+    width:90%;
+    max-width:600px;
+    background:rgba(255,255,255,0.06);
+    backdrop-filter:blur(14px);
+    border-radius:20px;
+    padding:30px;
+    box-shadow:0 20px 40px rgba(0,0,0,0.5);
+}
+
+h1{
+    text-align:center;
+    margin-bottom:10px;
+    background:linear-gradient(135deg,#7b2ff7,#00d4ff);
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+}
+
+.question{
+    margin:20px 0;
+    padding:15px;
+    border-radius:14px;
+    background:rgba(0,0,0,0.35);
+}
+
+.buttons{
+    margin-top:10px;
+}
+
+button{
+    padding:8px 20px;
+    border:none;
+    border-radius:10px;
+    cursor:pointer;
+    margin-right:10px;
+    color:white;
+    background:linear-gradient(135deg,#232526,#414345);
+}
+
+button:hover{
+    background:linear-gradient(135deg,#7b2ff7,#f107a3);
+}
+
+#submit{
+    width:100%;
+    margin-top:25px;
+    padding:14px;
+    font-size:16px;
+}
+
+#result{
+    text-align:center;
+    font-size:18px;
+    margin-top:20px;
+}
+</style>
+</head>
+
+<body>
+<div class="container">
+<h1>Lesson 1 – True / False</h1>
+<p>Read the sentences and choose True or False.</p>
+
+<div class="question">
+1. Learning a language only happens in classrooms.<br>
+<div class="buttons">
+<button onclick="setAnswer(0,true)">True</button>
+<button onclick="setAnswer(0,false)">False</button>
+</div>
+</div>
+
+<div class="question">
+2. A dictionary can help you while learning English.<br>
+<div class="buttons">
+<button onclick="setAnswer(1,true)">True</button>
+<button onclick="setAnswer(1,false)">False</button>
+</div>
+</div>
+
+<div class="question">
+3. Watching TV and listening to radio are useless for language learning.<br>
+<div class="buttons">
+<button onclick="setAnswer(2,true)">True</button>
+<button onclick="setAnswer(2,false)">False</button>
+</div>
+</div>
+
+<div class="question">
+4. You should practice English only at school.<br>
+<div class="buttons">
+<button onclick="setAnswer(3,true)">True</button>
+<button onclick="setAnswer(3,false)">False</button>
+</div>
+</div>
+
+<div class="question">
+5. Making mistakes is a normal part of learning a language.<br>
+<div cla="buttons">
+<button onclick="setAnswer(4,true)">True</button>
+<button onclick="setAnswer(4,false)">False</button>
+</div>
+</div>
+
+<button id="submit" onclick="checkAnswers()">Submit Answers</button>
+<div id="result"></div>
+</div>
+
+<script>
+const correctAnswers = [false, true, false, false, true];
+let userAnswers = new Array(5).fill(null);
+
+function setAnswer(index,value){
+    userAnswers[index]=value;
+}
+
+function checkAnswers(){
+    let score=

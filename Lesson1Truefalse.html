@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>True / False Game</title>
+
+<style>
+body{
+    font-family:Arial;
+    background:radial-gradient(circle at top,#1e1b4b,#000);
+    color:white;
+    padding:30px;
+}
+
+.container{
+    max-width:750px;
+    margin:auto;
+    background:rgba(255,255,255,0.08);
+    padding:30px;
+    border-radius:25px;
+    box-shadow:0 20px 40px rgba(0,0,0,0.5);
+}
+
+h1{
+    text-align:center;
+    color:#a5b4fc;
+}
+
+.question{
+    margin:20px 0;
+}
+
+button{
+    margin-top:10px;
+    padding:8px 18px;
+    border:none;
+    border-radius:15px;
+    cursor:pointer;
+    background:#6366f1;
+    color:white;
+}
+
+.correct{color:#4ade80;}
+.wrong{color:#f87171;}
+
+.back{
+    text-align:center;
+    margin-top:30px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+<h1>✅ True / False</h1>
+
+<div class="question">
+1. Protecting forests helps animals.  
+<br>
+<input id="q1"> 
+<button onclick="check('q1','true')">Check</button>
+<p id="r1"></p>
+</div>
+
+<div class="question">
+2. Hunters help wildlife.  
+<br>
+<input id="q2">
+<button onclick="check('q2','false')">Check</button>
+<p id="r2"></p>
+</div>
+
+<div class="question">
+3. Museums teach people about animals.  
+<br>
+<input id="q3">
+<button onclick="check('q3','true')">Check</button>
+<p id="r3"></p>
+</div>
+
+<div class="question">
+4. Keeping nature clean is harmful.  
+<br>
+<input id="q4">
+<button onclick="check('q4','false')">Check</button>
+<p id="r4"></p>
+</div>
+
+<div class="question">
+5. Voluntary work helps animals.  
+<br>
+<input id="q5">
+<button onclick="check('q5','true')">Check</button>
+<p id="r5"></p>
+</div>
+
+<div class="question">
+6. You should ignore hunters.  
+<br>
+<input id="q6">
+<button onclick="check('q6','false')">Check</button>
+<p id="r6"></p>
+</div>
+
+<div class="back">
+<a href="lesson1-games.html"><button>⬅ Back to Games</button></a>
+</div>
+</div>
+
+<script>
+function check(id,answer){
+    const user=document.getElementById(id).value.toLowerCase();
+    const res=document.getElementById('r'+id.substring(1));
+    res.innerHTML = user===answer ?
+    "<span class='correct'>Correct ✅</span>" :
+    "<span class='wrong'>Wrong ❌</span>";
+}
+</script>
+
+</body>
+</html>

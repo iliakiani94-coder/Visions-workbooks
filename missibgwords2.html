@@ -1,0 +1,178 @@
+<meta name='viewport' content='width=device-width, initial-scale=1'/><!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Lesson 2 - Game 3 (Missing Words)</title>
+
+<style>
+body{
+  margin:0;
+  font-family:Arial, sans-serif;
+  background: radial-gradient(circle at top, #1a0033, #000);
+  color:#fff;
+  text-align:center;
+}
+
+.container{
+  max-width:760px;
+  margin:50px auto;
+  background:rgba(255,255,255,0.07);
+  padding:30px;
+  border-radius:20px;
+  box-shadow:0 0 25px rgba(160,0,255,0.4);
+}
+
+h1{ color:#f0c8ff; }
+
+.sentence{
+  font-size:20px;
+  margin:30px 0;
+}
+
+.choice{
+  display:inline-block;
+  margin:8px;
+  padding:12px 26px;
+  font-size:16px;
+  border:none;
+  border-radius:25px;
+  cursor:pointer;
+  background:linear-gradient(135deg,#6a00ff,#ff00cc);
+  color:#fff;
+  box-shadow:0 0 12px rgba(255,0,204,0.4);
+  transition:0.3s;
+}
+
+.choice:hover{
+  transform:scale(1.06);
+}
+
+#result{
+  margin-top:20px;
+  font-size:18px;
+}
+
+#score{
+  margin-top:10px;
+  color:#ffd6ff;
+}
+
+.back-btn{
+  display:inline-block;
+  margin-top:30px;
+  padding:10px 25px;
+  background:#222;
+  border-radius:20px;
+  text-decoration:none;
+  color:#fff;
+}
+.back-btn:hover{ background:#333; }
+</style>
+</head>
+
+<body>
+
+<div class="container">
+  <h1>Lesson 2 – Game 3</h1>
+  <h3>Missing Words</h3>
+
+  <div class="sentence" id="sentence"></div>
+
+  <div id="choices"></div>
+
+  <div id="result"></div>
+  <div id="score">Score: 0</div>
+
+  <a class="back-btn" href="lesson2-games.html">Back to Games</a>
+</div>
+
+<script>
+const questions = [
+  {
+    sentence: "Microbes are very _____, so you can’t see them.",
+    options: ["big", "small", "dangerous"],
+    answer: "small"
+  },
+  {
+    sentence: "Some microbes help you stay _____.",
+    options: ["sick", "healthy", "tired"],
+    answer: "healthy"
+  },
+  {
+    sentence: "Bacteria have only one _____.",
+    options: ["arm", "cell", "eye"],
+    answer: "cell"
+  },
+  {
+    sentence: "Viruses cannot live on their _____.",
+    options: ["own", "food", "place"],
+    answer: "own"
+  },
+  {
+    sentence: "Viruses need a living _____ to grow.",
+    options: ["cell", "water", "plant"],
+    answer: "cell"
+  },
+  {
+    sentence: "Viruses usually make you _____.",
+    options: ["happy", "strong", "sick"],
+    answer: "sick"
+  }
+];
+
+let current = 0;
+let score = 0;
+let answered = false;
+
+const sentenceBox = document.getElementById("sentence");
+const choicesBox = document.getElementById("choices");
+const result = document.getElementById("result");
+const scoreBox = document.getElementById("score");
+
+function showQuestion(){
+  answered = false;
+  result.textContent = "";
+  sentenceBox.textContent = questions[current].sentence;
+  choicesBox.innerHTML = "";
+
+  questions[current].options.forEach(word=>{
+    const btn = document.createElement("button");
+    btn.className = "choice";
+    btn.textContent = word;
+    btn.onclick = ()=>checkAnswer(word);
+    choicesBox.appendChild(btn);
+  });
+}
+
+function checkAnswer(word){
+  if(answered) return;
+  answered = true;
+
+  if(word === questions[current].answer){
+    result.textContent = "✅ Correct!";
+    result.style.color = "#7CFF7C";
+    score += 10;
+  }else{
+    result.textContent = "❌ Wrong!";
+    result.style.color = "#FF7C7C";
+  }
+
+  scoreBox.textContent = "Score: " + score;
+
+  setTimeout(()=>{
+    current++;
+    if(current < questions.length){
+      showQuestion();
+    }else{
+      sentenceBox.textContent = "🎉 Game Finished!";
+      choicesBox.innerHTML = "";
+      result.textContent = "Final Score: " + score;
+    }
+  },1200);
+}
+
+showQuestion();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,147 @@
+<meta name='viewport' content='width=device-width, initial-scale=1'/><!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Lesson 1 - Game 2 (Best Answer)</title>
+
+<style>
+body{
+    margin:0;
+    font-family:Arial, sans-serif;
+    background:radial-gradient(circle at top,#1a1a2e,#0f0f1a);
+    color:#fff;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    min-height:100vh;
+}
+
+.container{
+    width:90%;
+    max-width:650px;
+    background:rgba(255,255,255,0.06);
+    backdrop-filter:blur(14px);
+    border-radius:20px;
+    padding:30px;
+    box-shadow:0 20px 40px rgba(0,0,0,0.5);
+}
+
+h1{
+    text-align:center;
+    margin-bottom:10px;
+    background:linear-gradient(135deg,#7b2ff7,#00d4ff);
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+}
+
+.question{
+    margin:20px 0;
+    padding:15px;
+    border-radius:14px;
+    background:rgba(0,0,0,0.35);
+}
+
+label{
+    display:block;
+    margin:6px 0;
+    cursor:pointer;
+}
+
+button{
+    width:100%;
+    margin-top:25px;
+    padding:14px;
+    font-size:16px;
+    border:none;
+    border-radius:14px;
+    cursor:pointer;
+    color:white;
+    background:linear-gradient(135deg,#232526,#414345);
+}
+
+button:hover{
+    background:linear-gradient(135deg,#7b2ff7,#f107a3);
+}
+
+#result{
+    text-align:center;
+    font-size:18px;
+    margin-top:20px;
+}
+</style>
+</head>
+
+<body>
+<div class="container">
+<h1>Lesson 1 – Best Answer</h1>
+<p>Choose the best answer for each question.</p>
+
+<div class="question">
+1. Where do teachers suggest students practice a language?
+<label><input type="radio" name="q0" value="0"> Only at school</label>
+<label><input type="radio" name="q0" value="1"> Only in class</label>
+<label><input type="radio" name="q0" value="2"> Outside school as well</label>
+</div>
+
+<div class="question">
+2. What is your best friend while learning English?
+<label><input type="radio" name="q1" value="0"> Television</label>
+<label><input type="radio" name="q1" value="1"> A dictionary</label>
+<label><input type="radio" name="q1" value="2"> Grammar book</label>
+</div>
+
+<div class="question">
+3. Why are books and newspapers useful?
+<label><input type="radio" name="q2" value="0"> To practice speaking</label>
+<label><input type="radio" name="q2" value="1"> To improve reading</label>
+<label><input type="radio" name="q2" value="2"> To learn spelling only</label>
+</div>
+
+<div class="question">
+4. According to the text, how often should you practice?
+<label><input type="radio" name="q3" value="0"> Only on weekends</label>
+<label><input type="radio" name="q3" value="1"> Every day</label>
+<label><input type="radio" name="q3" value="2"> Once a week</label>
+</div>
+
+<div class="question">
+5. What should learners NOT be afraid of?
+<label><input type="radio" name="q4" value="0"> Studying hard</label>
+<label><input type="radio" name="q4" value="1"> Making mistakes</label>
+<label><input type="radio" name="q4" value="2"> Reading books</label>
+</div>
+
+<button onclick="checkAnswers()">Submit</button>
+<div id="result"></div>
+
+</div>
+
+<script>
+const correct = [2,1,1,1,1];
+
+function checkAnswers(){
+    let score = 0;
+
+    for(let i=0;i<correct.length;i++){
+        const options = document.getElementsByName("q"+i);
+        for(let opt of options){
+            if(opt.checked && Number(opt.value)===correct[i]){
+                score+=10;
+            }
+        }
+    }
+
+    localStorage.setItem("lesson1game2score",score);
+
+    if(score>=40){
+        localStorage.setItem("lesson1game3Unlocked","true");
+        document.getElementById("result").innerHTML =
+        `✅ Score: ${score}/50<br>Game 3 Unlocked!`;
+    }else{
+        document.getElementById("result").innerHTML =
+        `⚠ Score: ${score}/50<br>Try again to unlock Game 3.`;
+    }
+}
+</script>
+</body>
+</html>

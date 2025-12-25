@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lesson 3 – Game 1 (True / False)</title>
+
+<style>
+  body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: radial-gradient(circle at top, #2d1b4f, #0b0820);
+    color: white;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .game-box {
+    width: 90%;
+    max-width: 700px;
+    background: rgba(255,255,255,0.08);
+    border-radius: 24px;
+    padding: 28px 24px 36px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+    text-align: center;
+  }
+
+  h1 {
+    margin-bottom: 10px;
+  }
+
+  #question {
+    font-size: 18px;
+    line-height: 1.6;
+    margin: 22px 0;
+  }
+
+  .btn {
+    display: inline-block;
+    margin: 10px;
+    padding: 12px 26px;
+    font-size: 16px;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    color: white;
+    background: linear-gradient(135deg, #7f5af0, #ff7ac6);
+  }
+
+  .btn:hover {
+    opacity: 0.9;
+  }
+
+  #feedback {
+    margin-top: 15px;
+    font-size: 17px;
+    min-height: 24px;
+  }
+
+  .score {
+    margin-top: 10px;
+    font-size: 15px;
+    opacity: 0.9;
+  }
+
+  .next-btn {
+    display: none;
+    margin: 25px auto 0;
+    padding: 14px 32px;
+    background: linear-gradient(135deg, #00c9a7, #5af0c8);
+    color: #002;
+    font-weight: bold;
+    border-radius: 30px;
+    text-decoration: none;
+  }
+</style>
+</head>
+
+<body>
+
+<div class="game-box">
+  <h1>True or False</h1>
+
+  <div id="question"></div>
+
+  <button class="btn" onclick="checkAnswer(true)">True</button>
+  <button class="btn" onclick="checkAnswer(false)">False</button>
+
+  <div id="feedback"></div>
+  <div class="score">Score: <span id="score">0</span></div>
+
+  <a href="lesson3game2.html" class="next-btn" id="nextGame">
+    Go to Game 2 →
+  </a>
+</div>
+
+<script>
+const questions = [
+  { text: "Scientists study the world around us.", answer: true },
+  { text: "Scientists only study animals.", answer: false },
+  { text: "Some scientists study history or languages.", answer: true },
+  { text: "Scientists learn only by reading books.", answer: false },
+  { text: "Some scientists want to make people’s lives easier.", answer: true },
+  { text: "Scientists feel successful only when they become famous.", answer: false }
+];
+
+let current = 0;
+let score = 0;
+
+const questionEl = document.getElementById("question");
+const feedbackEl = document.getElementById("feedback");
+const scoreEl = document.getElementById("score");
+const nextBtn = document.getElementById("nextGame");
+
+function loadQuestion() {
+  questionEl.textContent = questions[current].text;
+  feedbackEl.textContent = "";
+}
+
+function checkAnswer(userAnswer) {
+  if (userAnswer === questions[current].answer) {
+    feedbackEl.textContent = "✅ Correct!";
+    score += 10;
+    scoreEl.textContent = score;
+  } else {
+    feedbackEl.textContent = "❌ Wrong!";
+  }
+
+  current++;
+
+  if (current < questions.length) {
+    setTimeout(loadQuestion, 900);
+  } else {
+    feedbackEl.textContent = "🎉 Game Finished!";
+    nextBtn.style.display = "inline-block";
+    localStorage.setItem("lesson3_score_game1", score);
+    localStorage.setItem("lesson3_game2_unlocked", "true");
+  }
+}
+
+loadQuestion();
+</script>
+
+</body>
+</html>

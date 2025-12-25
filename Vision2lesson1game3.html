@@ -1,0 +1,140 @@
+<meta name='viewport' content='width=device-width, initial-scale=1'/><!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Lesson 1 - Game 3 (Fill in the Blanks)</title>
+
+<style>
+body{
+    margin:0;
+    font-family:Arial, sans-serif;
+    background:radial-gradient(circle at top,#1a1a2e,#0f0f1a);
+    color:#fff;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    min-height:100vh;
+}
+
+.container{
+    width:90%;
+    max-width:650px;
+    background:rgba(255,255,255,0.06);
+    backdrop-filter:blur(14px);
+    border-radius:20px;
+    padding:30px;
+    box-shadow:0 20px 40px rgba(0,0,0,0.5);
+}
+
+h1{
+    text-align:center;
+    margin-bottom:10px;
+    background:linear-gradient(135deg,#7b2ff7,#00d4ff);
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+}
+
+.question{
+    margin:20px 0;
+    padding:15px;
+    border-radius:14px;
+    background:rgba(0,0,0,0.35);
+    line-height:1.8;
+}
+
+input{
+    width:140px;
+    padding:6px 10px;
+    border-radius:8px;
+    border:none;
+    outline:none;
+}
+
+button{
+    width:100%;
+    margin-top:25px;
+    padding:14px;
+    font-size:16px;
+    border:none;
+    border-radius:14px;
+    cursor:pointer;
+    color:white;
+    background:linear-gradient(135deg,#232526,#414345);
+}
+
+button:hover{
+    background:linear-gradient(135deg,#7b2ff7,#f107a3);
+}
+
+#result{
+    text-align:center;
+    font-size:18px;
+    margin-top:20px;
+}
+</style>
+</head>
+
+<body>
+<div class="container">
+<h1>Lesson 1 – Fill in the Blanks</h1>
+<p>Complete the sentences using words from the text.</p>
+
+<div class="question">
+1. Learning a language doesn’t only happen in the <input id="q0">.
+</div>
+
+<div class="question">
+2. A <input id="q1"> is your best friend while learning English.
+</div>
+
+<div class="question">
+3. Books and newspapers help improve your <input id="q2">.
+</div>
+
+<div class="question">
+4. You should practice English <input id="q3"> day.
+</div>
+
+<div class="question">
+5. Learners should not be afraid to make <input id="q4">.
+</div>
+
+<button onclick="checkAnswers()">Submit</button>
+<div id="result"></div>
+</div>
+
+<script>
+const correct = [
+    "classroom",
+    "dictionary",
+    "reading",
+    "every",
+    "mistakes"
+];
+
+function checkAnswers(){
+    let score = 0;
+
+    for(let i=0;i<correct.length;i++){
+        let userAnswer = document.getElementById("q"+i).value
+            .trim().toLowerCase();
+
+        if(userAnswer === correct[i]){
+            score += 10;
+        }
+    }
+
+    localStorage.setItem("lesson1game3score", score);
+
+    if(score >= 40){
+        localStorage.setItem("lesson1game4Unlocked", "true");
+        document.getElementById("result").innerHTML =
+        `✅ Score: ${score}/50<br>Game 4 Unlocked!`;
+    } else {
+        document.getElementById("result").innerHTML =
+        `⚠ Score: ${score}/50<br>Try again to unlock Game 4.`;
+    }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,209 @@
+<meta name='viewport' content='width=device-width, initial-scale=1'/><!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Lesson 3 Games – Electric Cars</title>
+
+<style>
+body {
+  font-family: Arial, sans-serif;
+  background: #f4f6fb;
+  margin: 0;
+}
+header {
+  background: #2f3e9e;
+  color: white;
+  padding: 20px;
+  text-align: center;
+}
+.container {
+  max-width: 900px;
+  margin: 30px auto;
+  background: #fff;
+  padding: 25px;
+  border-radius: 8px;
+}
+.menu button {
+  margin: 5px;
+  padding: 10px 18px;
+  border: none;
+  border-radius: 6px;
+  background: #3b5bdb;
+  color: white;
+  cursor: pointer;
+}
+.menu button:hover {
+  background: #2f3e9e;
+}
+.question {
+  margin: 15px 0;
+}
+.options label {
+  display: block;
+  margin: 5px 0;
+}
+.hidden {
+  display: none;
+}
+.result {
+  font-weight: bold;
+  margin-top: 15px;
+}
+</style>
+</head>
+
+<body>
+<header>
+  <h1>Lesson 3 – Electric Cars</h1>
+  <p>Grade 12 | Reading Comprehension Games</p>
+</header>
+
+<div class="container">
+
+  <div class="menu">
+    <button onclick="showGame('vocab')">Vocabulary</button>
+    <button onclick="showGame('tf')">True / False</button>
+    <button onclick="showGame('main')">Main Idea</button>
+    <button onclick="showGame('match')">Matching</button>
+  </div>
+
+  <!-- Vocabulary -->
+  <div id="vocab" class="hidden">
+    <h2>Vocabulary in Context</h2>
+    <form id="vocabForm"></form>
+    <button onclick="checkVocab()">Submit</button>
+    <p id="vocabResult" class="result"></p>
+  </div>
+
+  <!-- True/False -->
+  <div id="tf" class="hidden">
+    <h2>True / False</h2>
+    <form id="tfForm"></form>
+    <button onclick="checkTF()">Submit</button>
+    <p id="tfResult" class="result"></p>
+  </div>
+
+  <!-- Main Idea -->
+  <div id="main" class="hidden">
+    <h2>Main Idea & Purpose</h2>
+    <form id="mainForm"></form>
+    <button onclick="checkMain()">Submit</button>
+    <p id="mainResult" class="result"></p>
+  </div>
+
+  <!-- Matching -->
+  <div id="match" class="hidden">
+    <h2>Matching</h2>
+    <form id="matchForm"></form>
+    <button onclick="checkMatch()">Submit</button>
+    <p id="matchResult" class="result"></p>
+  </div>
+
+</div>
+
+<script>
+function showGame(id) {
+  document.querySelectorAll('.container > div:not(.menu)').forEach(d => d.classList.add('hidden'));
+  document.getElementById(id).classList.remove('hidden');
+}
+
+/* Vocabulary */
+const vocabQs = [
+ {q:"Fossil fuels are mainly used in … cars.", o:["electric","hybrid","gasoline","battery"], a:2},
+ {q:"Electric cars do not pollute the air because they …", o:["use gas","burn oil","don’t burn gasoline","work slowly"], a:2},
+ {q:"Electricity is stored in car …", o:["lamps","motors","engines","batteries"], a:3},
+ {q:"An electric motor is used to …", o:["charge batteries","burn fuel","turn wheels","pollute air"], a:2},
+ {q:"To make a battery ready, it must be …", o:["cleaned","replaced","charged","sold"], a:2},
+ {q:"Electric cars are usually charged …", o:["at night","at noon","at work","on the road"], a:0},
+ {q:"A special charging unit can be used at …", o:["schools","stores","houses","factories"], a:2},
+ {q:"Hybrid cars use …", o:["only gasoline","only batteries","both gasoline and electricity","solar power"], a:2},
+ {q:"Engineers want batteries that …", o:["are smaller","last longer","pollute more","cost more"], a:1},
+ {q:"Hybrid cars can help solve the problem of …", o:["pollution","charging","price","design"], a:1}
+];
+
+/* True / False */
+const tfQs = [
+ {q:"Electric cars burn gasoline in their engines.", a:false},
+ {q:"Electric cars use batteries to store electricity.", a:true},
+ {q:"Electric motors turn the wheels.", a:true},
+ {q:"Electric cars cannot be charged at home.", a:false},
+ {q:"Some electric cars use regular wall outlets.", a:true},
+ {q:"All electric cars need special outlets.", a:false},
+ {q:"Hybrid cars combine gasoline engines and electric motors.", a:true},
+ {q:"Electric cars are charged like mobile phones.", a:true},
+ {q:"Batteries in electric cars are always very small.", a:false},
+ {q:"Engineers are trying to improve batteries.", a:true}
+];
+
+/* Main Idea */
+const mainQs = [
+ {q:"The main idea of the passage is …", o:["history of cars","advantages of electric cars","how engines work","road safety"], a:1},
+ {q:"Why do many countries support electric cars?", o:["They are cheaper","They don’t pollute air","They are faster","They are smaller"], a:1},
+ {q:"What problem do electric cars have?", o:["Speed","Charging","Design","Noise"], a:1},
+ {q:"Why are electric cars charged at night?", o:["It is safer","It is cheaper","They are not used then","It sounds better"], a:2},
+ {q:"The writer mainly discusses electric cars to …", o:["entertain","compare languages","inform","criticize"], a:2},
+ {q:"Hybrid cars are mentioned to show …", o:["a solution","a danger","a rule","a mistake"], a:0},
+ {q:"Which paragraph explains charging?", o:["First","Second","Third","Last"], a:2},
+ {q:"The batteries in electric cars are similar to …", o:["TVs","phones","lamps","engines"], a:1},
+ {q:"The passage is mostly written for …", o:["engineers","students","drivers only","scientists"], a:1},
+ {q:"The tone of the passage is …", o:["angry","informative","humorous","sad"], a:1}
+];
+
+/* Matching */
+const matchQs = [
+ {q:"Electric car", o:["burns gasoline","uses batteries","uses coal"], a:1},
+ {q:"Battery", o:["stores electricity","turns wheels","pollutes air"], a:0},
+ {q:"Electric motor", o:["charges battery","turns wheels","stores energy"], a:1},
+ {q:"Charging", o:["using fuel","filling oil","connecting to power"], a:2},
+ {q:"Hybrid car", o:["only gasoline","only battery","both systems"], a:2},
+ {q:"Fossil fuels", o:["clean energy","polluting energy","solar energy"], a:1},
+ {q:"Engineers", o:["sell cars","repair roads","improve batteries"], a:2},
+ {q:"Wall outlet", o:["charges car","turns wheels","stores energy"], a:0},
+ {q:"Remote-controlled car", o:["uses motor","uses pedals","burns gas"], a:0},
+ {q:"Electricity", o:["runs TV","pollutes air","burns fuel"], a:0}
+];
+
+function render(formId, qs, type="mc") {
+ const form=document.getElementById(formId);
+ form.innerHTML="";
+ qs.forEach((x,i)=>{
+  let html=`<div class="question"><p>${i+1}. ${x.q}</p><div class="options">`;
+  if(type==="tf"){
+    html+=`
+    <label><input type="radio" name="q${i}" value="true"> True</label>
+    <label><input type="radio" name="q${i}" value="false"> False</label>`;
+  } else {
+    x.o.forEach((opt,j)=>{
+      html+=`<label><input type="radio" name="q${i}" value="${j}"> ${opt}</label>`;
+    });
+  }
+  html+="</div></div>";
+  form.innerHTML+=html;
+ });
+}
+
+render("vocabForm",vocabQs);
+render("tfForm",tfQs,"tf");
+render("mainForm",mainQs);
+render("matchForm",matchQs);
+
+function check(qs, type, resultId){
+ let score=0;
+ qs.forEach((x,i)=>{
+  const ans=document.querySelector(`input[name="q${i}"]:checked`);
+  if(ans){
+    if(type==="tf" && String(x.a)===ans.value) score++;
+    if(type!=="tf" && Number(ans.value)===x.a) score++;
+  }
+ });
+ document.getElementById(resultId).innerText=`Score: ${score} / 10`;
+}
+
+function checkVocab(){check(vocabQs,"mc","vocabResult");}
+function checkTF(){check(tfQs,"tf","tfResult");}
+function checkMain(){check(mainQs,"mc","mainResult");}
+function checkMatch(){check(matchQs,"mc","matchResult");}
+</script>
+
+</body>
+</html>

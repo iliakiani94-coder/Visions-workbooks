@@ -1,0 +1,166 @@
+<meta name='viewport' content='width=device-width, initial-scale=1'/><!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Lesson 3 - Game 1 | True / False</title>
+
+<style>
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #0f172a;
+  color: #fff;
+}
+
+.container {
+  max-width: 900px;
+  margin: auto;
+  padding: 40px 20px;
+}
+
+h1 {
+  text-align: center;
+}
+
+.question {
+  background: #1e293b;
+  border-radius: 16px;
+  padding: 20px;
+  margin-bottom: 20px;
+  box-shadow: inset 4px 4px 10px #0b1220,
+              inset -4px -4px 10px #253455;
+}
+
+.question p {
+  font-size: 18px;
+}
+
+.answers button {
+  margin: 10px 10px 0 0;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 10px;
+  background: #334155;
+  color: #fff;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.answers button:hover {
+  background: #8f5cff;
+}
+
+#result {
+  margin-top: 30px;
+  font-size: 22px;
+  text-align: center;
+}
+
+#nextBtn {
+  display: none;
+  margin: 30px auto 0;
+  padding: 14px 30px;
+  font-size: 18px;
+  background: linear-gradient(135deg, #22d3ee, #8f5cff);
+  color: #fff;
+  border: none;
+  border-radius: 14px;
+  cursor: pointer;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+  <h1>Lesson 3 – Game 1</h1>
+  <p style="text-align:center; opacity:.8">True or False</p>
+
+  <!-- Question 1 -->
+  <div class="question">
+    <p>1. Culture only includes food, music, and clothing.</p>
+    <div class="answers">
+      <button onclick="check(this, false)">True</button>
+      <button onclick="check(this, true)">False</button>
+    </div>
+  </div>
+
+  <!-- Question 2 -->
+  <div class="question">
+    <p>2. Customs, values, and behaviors are part of culture.</p>
+    <div class="answers">
+      <button onclick="check(this, true)">True</button>
+      <button onclick="check(this, false)">False</button>
+    </div>
+  </div>
+
+  <!-- Question 3 -->
+  <div class="question">
+    <p>3. People around the world live in exactly the same way.</p>
+    <div class="answers">
+      <button onclick="check(this, false)">True</button>
+      <button onclick="check(this, true)">False</button>
+    </div>
+  </div>
+
+  <!-- Question 4 -->
+  <div class="question">
+    <p>4. Respecting other cultures is important for learning about the world.</p>
+    <div class="answers">
+      <button onclick="check(this, true)">True</button>
+      <button onclick="check(this, false)">False</button>
+    </div>
+  </div>
+
+  <!-- Question 5 -->
+  <div class="question">
+    <p>5. Reading about other cultures is a good way to learn about them.</p>
+    <div class="answers">
+      <button onclick="check(this, true)">True</button>
+      <button onclick="check(this, false)">False</button>
+    </div>
+  </div>
+
+  <div id="result"></div>
+
+  <button id="nextBtn" onclick="goNext()">Go to Game 2 ✅</button>
+</div>
+
+<script>
+let score = 0;
+let answered = 0;
+
+function check(button, correct) {
+  const parent = button.closest(".question");
+  if (parent.classList.contains("done")) return;
+
+  parent.classList.add("done");
+  answered++;
+
+  if (correct) {
+    score += 10;
+    button.style.background = "#22c55e";
+  } else {
+    button.style.background = "#ef4444";
+  }
+
+  if (answered === 5) {
+    document.getElementById("result").innerHTML =
+      "Your Score: <b>" + score + " / 50</b>";
+
+    localStorage.setItem("lesson3game1Score", score);
+
+    if (score >= 40) {
+      localStorage.setItem("lesson3game2Unlocked", "true");
+      document.getElementById("nextBtn").style.display = "block";
+    }
+  }
+}
+
+function goNext() {
+  window.location.href = "lesson3game2.html";
+}
+</script>
+
+</body>
+</html>

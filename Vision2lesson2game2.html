@@ -1,0 +1,191 @@
+<meta name='viewport' content='width=device-width, initial-scale=1'/><!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Lesson 2 - Game 2 | Best Answer</title>
+
+<style>
+body{
+  margin:0;
+  background:#020617;
+  color:#e5e7eb;
+  font-family:Arial,sans-serif;
+}
+
+.container{
+  max-width:800px;
+  margin:40px auto;
+  padding:30px;
+  background:rgba(30,41,59,0.7);
+  backdrop-filter:blur(10px);
+  border-radius:20px;
+  box-shadow:0 0 25px rgba(14,165,233,0.4);
+}
+
+h1{
+  text-align:center;
+  color:#7dd3fc;
+  margin-bottom:30px;
+}
+
+.question{
+  margin-bottom:25px;
+}
+
+.question p{
+  font-size:18px;
+}
+
+.options label{
+  display:block;
+  margin:8px 0;
+  padding:10px 15px;
+  border-radius:12px;
+  background:#1e293b;
+  cursor:pointer;
+}
+
+.options input{
+  margin-right:10px;
+}
+
+.options label:hover{
+  background:#334155;
+}
+
+#submit{
+  display:block;
+  margin:30px auto;
+  padding:12px 35px;
+  font-size:18px;
+  border:none;
+  border-radius:14px;
+  background:linear-gradient(135deg,#0ea5e9,#6366f1);
+  color:#fff;
+  cursor:pointer;
+}
+
+#result{
+  text-align:center;
+  font-size:22px;
+  margin-top:20px;
+  color:#facc15;
+}
+
+.next{
+  display:none;
+  text-align:center;
+  margin-top:30px;
+}
+
+.next a{
+  padding:12px 30px;
+  background:linear-gradient(135deg,#22c55e,#16a34a);
+  color:#fff;
+  text-decoration:none;
+  border-radius:14px;
+}
+
+.locked{
+  text-align:center;
+  margin-top:80px;
+  font-size:22px;
+  color:#f87171;
+}
+</style>
+</head>
+
+<body>
+
+<script>
+if(localStorage.getItem("lesson2_game1") < 40){
+  document.body.innerHTML = `
+    <div class="locked">
+      🔒 Game 2 is locked<br><br>
+      Please score at least 40 in Game 1
+    </div>
+  `;
+}
+</script>
+
+<div class="container">
+<h1>Lesson 2 – Best Answer</h1>
+
+<form id="quiz">
+
+<div class="question">
+<p>1. What has modern technology provided for people?</p>
+<div class="options">
+<label><input type="radio" name="q1" value="0"> More financial problems</label>
+<label><input type="radio" name="q1" value="10"> Easy access to information</label>
+<label><input type="radio" name="q1" value="0"> Less communication</label>
+</div>
+</div>
+
+<div class="question">
+<p>2. What problem can long hours of mobile phone use cause?</p>
+<div class="options">
+<label><input type="radio" name="q2" value="10"> Sleep problems</label>
+<label><input type="radio" name="q2" value="0"> Better memory</label>
+<label><input type="radio" name="q2" value="0"> Strong muscles</label>
+</div>
+</div>
+
+<div class="question">
+<p>3. Playing video games for many hours can ______.</p>
+<div class="options">
+<label><input type="radio" name="q3" value="0"> Improve social skills</label>
+<label><input type="radio" name="q3" value="10"> Harm the nervous system</label>
+<label><input type="radio" name="q3" value="0"> Make people healthier</label>
+</div>
+</div>
+
+<div class="question">
+<p>4. Technology addicts prefer to ______.</p>
+<div class="options">
+<label><input type="radio" name="q4" value="10"> Be alone with their devices</label>
+<label><input type="radio" name="q4" value="0"> Spend time with many people</label>
+<label><input type="radio" name="q4" value="0"> Do outdoor sports</label>
+</div>
+</div>
+
+<div class="question">
+<p>5. One way to avoid technology addiction is ______.</p>
+<div class="options">
+<label><input type="radio" name="q5" value="0"> Using devices longer</label>
+<label><input type="radio" name="q5" value="10"> Spending time with family</label>
+<label><input type="radio" name="q5" value="0"> Avoiding exercise</label>
+</div>
+</div>
+
+<button type="button" id="submit" onclick="check()">Submit</button>
+</form>
+
+<div id="result"></div>
+
+<div class="next" id="nextBtn">
+<a href="lesson2game3.html">➡ Go to Game 3</a>
+</div>
+
+</div>
+
+<script>
+function check(){
+  let score = 0;
+  document.querySelectorAll('input:checked')
+    .forEach(a => score += Number(a.value));
+
+  document.getElementById('result')
+    .innerText = `Your Score: ${score} / 50`;
+
+  localStorage.setItem('lesson2_game2', score);
+
+  if(score >= 40){
+    localStorage.setItem('lesson2_game3_unlocked','true');
+    document.getElementById('nextBtn').style.display = 'block';
+  }
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,163 @@
+<meta name='viewport' content='width=device-width, initial-scale=1'/><!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lesson 3 – Game 3 (Missing Words)</title>
+
+<style>
+  body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: radial-gradient(circle at top, #2d1b4f, #0b0820);
+    color: white;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .game-box {
+    width: 90%;
+    max-width: 760px;
+    background: rgba(255,255,255,0.08);
+    border-radius: 24px;
+    padding: 30px 24px 36px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+    text-align: center;
+  }
+
+  h1 {
+    margin-bottom: 12px;
+  }
+
+  #sentence {
+    font-size: 18px;
+    margin: 24px 0;
+    line-height: 1.8;
+  }
+
+  input {
+    max-width: 200px;
+    padding: 10px 14px;
+    font-size: 16px;
+    border-radius: 20px;
+    border: none;
+    text-align: center;
+    outline: none;
+  }
+
+  .btn {
+    margin-top: 18px;
+    padding: 12px 28px;
+    font-size: 16px;
+    border-radius: 30px;
+    border: none;
+    cursor: pointer;
+    background: linear-gradient(135deg, #7f5af0, #ff7ac6);
+    color: white;
+  }
+
+  .btn:hover {
+    opacity: 0.9;
+  }
+
+  #feedback {
+    margin-top: 16px;
+    font-size: 17px;
+    min-height: 24px;
+  }
+
+  .score {
+    margin-top: 8px;
+    font-size: 15px;
+    opacity: 0.9;
+  }
+
+  .next-btn {
+    display: none;
+    margin: 26px auto 0;
+    padding: 14px 36px;
+    background: linear-gradient(135deg, #00c9a7, #5af0c8);
+    color: #002;
+    font-weight: bold;
+    border-radius: 30px;
+    text-decoration: none;
+  }
+</style>
+</head>
+
+<body>
+
+<div class="game-box">
+  <h1>Missing Words</h1>
+
+  <div id="sentence"></div>
+
+  <input type="text" id="answer" placeholder="Type the word">
+
+  <br>
+  <button class="btn" onclick="checkAnswer()">Check</button>
+
+  <div id="feedback"></div>
+  <div class="score">Score: <span id="score">0</span></div>
+
+  <a href="lesson3game4.html" class="next-btn" id="nextGame">
+    Go to Game 4 →
+  </a>
+</div>
+
+<script>
+const sentences = [
+  { text: "A _____ studies the world around us.", answer: "scientist" },
+  { text: "Scientists learn by observing and _____.", answer: "experimenting" },
+  { text: "Some scientists study plants, animals, or the _____.", answer: "earth" },
+  { text: "Scientists want to solve _____ and find answers.", answer: "problems" },
+  { text: "Some scientists like to study history or _____.", answer: "languages" },
+  { text: "Scientists want to make people’s lives _____.", answer: "easier" }
+];
+
+let current = 0;
+let score = 0;
+
+const sentenceEl = document.getElementById("sentence");
+const answerEl = document.getElementById("answer");
+const feedbackEl = document.getElementById("feedback");
+const scoreEl = document.getElementById("score");
+const nextBtn = document.getElementById("nextGame");
+
+function loadSentence() {
+  sentenceEl.textContent = sentences[current].text;
+  answerEl.value = "";
+  feedbackEl.textContent = "";
+}
+
+function checkAnswer() {
+  const userAnswer = answerEl.value.trim().toLowerCase();
+  const correct = sentences[current].answer.toLowerCase();
+
+  if (userAnswer === correct) {
+    feedbackEl.textContent = "✅ Correct!";
+    score += 10;
+    scoreEl.textContent = score;
+  } else {
+    feedbackEl.textContent = `❌ Wrong! Correct answer: ${sentences[current].answer}`;
+  }
+
+  current++;
+
+  if (current < sentences.length) {
+    setTimeout(loadSentence, 900);
+  } else {
+    feedbackEl.textContent = "🎉 Game Completed!";
+    nextBtn.style.display = "inline-block";
+    localStorage.setItem("lesson3_score_game3", score);
+    localStorage.setItem("lesson3_game4_unlocked", "true");
+  }
+}
+
+loadSentence();
+</script>
+
+</body>
+</html>

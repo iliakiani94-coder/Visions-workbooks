@@ -1,0 +1,157 @@
+<meta name='viewport' content='width=device-width, initial-scale=1'/><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Lesson 4 - Game 4 (Matching)</title>
+    <style>
+        body {
+            background-color: #0f0f1a;
+            color: #ffffff;
+            font-family: Arial, sans-serif;
+            padding: 30px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: auto;
+            background: #1a1a2e;
+            padding: 30px;
+            border-radius: 15px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #ffd166;
+            margin-bottom: 30px;
+        }
+
+        .match {
+            margin-bottom: 20px;
+        }
+
+        select {
+            padding: 8px;
+            border-radius: 10px;
+            border: none;
+            width: 320px;
+        }
+
+        button {
+            padding: 10px 30px;
+            margin-top: 25px;
+            border: none;
+            border-radius: 25px;
+            background: #3a86ff;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            opacity: 0.85;
+        }
+
+        .result {
+            margin-top: 25px;
+            font-size: 18px;
+            text-align: center;
+        }
+
+        .finish {
+            text-align: center;
+            margin-top: 25px;
+        }
+
+        .finish a {
+            color: #06d6a0;
+            text-decoration: none;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Lesson 4 – Game 4<br>Matching</h1>
+
+    <div class="match">
+        <p>1. Traveler</p>
+        <select id="m1">
+            <option value="">Choose...</option>
+            <option value="guest">A person visiting another place</option>
+            <option value="animal">A wild animal</option>
+            <option value="hotel">A place to stay</option>
+        </select>
+    </div>
+
+    <div class="match">
+        <p>2. Tourist attractions</p>
+        <select id="m2">
+            <option value="">Choose...</option>
+            <option value="places">Places people visit for fun</option>
+            <option value="food">Kinds of food</option>
+            <option value="people">Local people</option>
+        </select>
+    </div>
+
+    <div class="match">
+        <p>3. Guest</p>
+        <select id="m3">
+            <option value="">Choose...</option>
+            <option value="visitor">Someone visiting another place</option>
+            <option value="owner">The owner of a place</option>
+            <option value="teacher">A school teacher</option>
+        </select>
+    </div>
+
+    <div class="match">
+        <p>4. Holy places</p>
+        <select id="m4">
+            <option value="">Choose...</option>
+            <option value="religious">Religious and special places</option>
+            <option value="nature">Natural places</option>
+            <option value="cities">Big cities</option>
+        </select>
+    </div>
+
+    <div class="match">
+        <p>5. Protect nature</p>
+        <select id="m5">
+            <option value="">Choose...</option>
+            <option value="care">Take care of plants and animals</option>
+            <option value="destroy">Destroy forests</option>
+            <option value="ignore">Ignore the environment</option>
+        </select>
+    </div>
+
+    <div style="text-align:center;">
+        <button onclick="checkMatching()">Check Answers</button>
+    </div>
+
+    <div class="result" id="result"></div>
+
+    <div class="finish">
+        ✅ <a href="lesson4games.html">Finish Lesson 4</a>
+    </div>
+</div>
+
+<script>
+function checkMatching() {
+    let score = 0;
+
+    if (document.getElementById("m1").value === "guest") score += 10;
+    if (document.getElementById("m2").value === "places") score += 10;
+    if (document.getElementById("m3").value === "visitor") score += 10;
+    if (document.getElementById("m4").value === "religious") score += 10;
+    if (document.getElementById("m5").value === "care") score += 10;
+
+    documentElementById("result").innerHTML =
+        "Your Score: <strong>" + score + "/50</strong>";
+
+    localStorage.setItem("lesson4_game4_score", score);
+    localStorage.setItem("lesson4_completed", "true");
+}
+</script>
+
+</body>
+</html>

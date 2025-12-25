@@ -1,0 +1,147 @@
+<meta name='viewport' content='width=device-width, initial-scale=1'/><!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Lesson 3 - Game 3 | Missing Words</title>
+
+<style>
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #0f172a;
+  color: #fff;
+}
+
+.container {
+  max-width: 900px;
+  margin: auto;
+  padding: 40px 20px;
+}
+
+h1 {
+  text-align: center;
+}
+
+.question {
+  background: #1e293b;
+  border-radius: 16px;
+  padding: 22px;
+  margin-bottom: 20px;
+  box-shadow: inset 4px 4px 10px #0b1220,
+              inset -4px -4px 10px #253455;
+  font-size: 18px;
+}
+
+input[type="text"] {
+  padding: 8px 12px;
+  font-size: 16px;
+  border-radius: 8px;
+  border: none;
+  width: 160px;
+  text-align: center;
+}
+
+button {
+  margin-top: 20px;
+  width: 100%;
+  padding: 14px;
+  font-size: 18px;
+  background: linear-gradient(135deg, #22d3ee, #8f5cff);
+  color: #fff;
+  border: none;
+  border-radius: 14px;
+  cursor: pointer;
+}
+
+#result {
+  text-align: center;
+  font-size: 22px;
+  margin-top: 25px;
+}
+
+#nextBtn {
+  display: none;
+  margin-top: 30px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+  <h1>Lesson 3 – Game 3</h1>
+  <p style="text-align:center; opacity:.8">Complete the sentences</p>
+
+  <div class="question">
+    1. Culture is a system of shared
+    <input id="q1"> that are common in a society.
+  </div>
+
+  <div class="question">
+    2. People around the world have different beliefs and
+    <input id="q2">.
+  </div>
+
+  <div class="question">
+    3. People usually live according to what they believe is right and
+    <input id="q3">.
+  </div>
+
+  <div class="question">
+    4. Learning to
+    <input id="q4"> other cultures helps us learn about the world.
+  </div>
+
+  <div class="question">
+    5. A great way to learn about other cultures is
+    <input id="q5"> about them.
+  </div>
+
+  <button onclick="checkAnswers()">Check Answers ✅</button>
+
+  <div id="result"></div>
+  <button id="nextBtn" onclick="goNext()">Go to Game 4 ✅</button>
+</div>
+
+<script>
+function checkAnswers() {
+  let score = 0;
+
+  const answers = {
+    q1: "beliefs",
+    q2: "customs",
+    q3: "wrong",
+    q4: "respect",
+    q5: "reading"
+  };
+
+  for (let key in answers) {
+    const input = document.getElementById(key);
+    if (
+      input.value.trim().toLowerCase() === answers[key]
+    ) {
+      score += 10;
+      input.style.background = "#22c55e";
+    } else {
+      input.style.background = "#ef4444";
+    }
+  }
+
+  document.getElementById("result").innerHTML =
+    "Your Score: <b>" + score + " / 50</b>";
+
+  localStorage.setItem("lesson3game3Score", score);
+
+  if (score >= 40) {
+    localStorage.setItem("lesson3game4Unlocked", "true");
+    document.getElementById("nextBtn").style.display = "block";
+  }
+}
+
+function goNext() {
+  window.location.href = "lesson3game4.html";
+}
+</script>
+
+</body>
+</html>

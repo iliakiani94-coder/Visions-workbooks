@@ -1,0 +1,156 @@
+<meta name='viewport' content='width=device-width, initial-scale=1'/><!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Lesson 1 - Game 4 (Matching)</title>
+
+<style>
+body{
+    margin:0;
+    font-family:Arial, sans-serif;
+    background:radial-gradient(circle at top,#1a1a2e,#0f0f1a);
+    color:#fff;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    min-height:100vh;
+}
+
+.container{
+    width:90%;
+    max-width:700px;
+    background:rgba(255,255,255,0.06);
+    backdrop-filter:blur(14px);
+    border-radius:20px;
+    padding:30px;
+    box-shadow:0 20px 40px rgba(0,0,0,0.5);
+}
+
+h1{
+    text-align:center;
+    background:linear-gradient(135deg,#7b2ff7,#00d4ff);
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+}
+
+.match{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin:15px 0;
+    background:rgba(0,0,0,0.35);
+    padding:12px;
+    border-radius:12px;
+}
+
+select{
+    padding:6px 10px;
+    border-radius:10px;
+    border:none;
+    outline:none;
+}
+
+button{
+    width:100%;
+    margin-top:25px;
+    padding:14px;
+    font-size:16px;
+    border:none;
+    border-radius:14px;
+    cursor:pointer;
+    color:white;
+    background:linear-gradient(135deg,#232526,#414345);
+}
+
+button:hover{
+    background:linear-gradient(135deg,#7b2ff7,#f107a3);
+}
+
+#result{
+    text-align:center;
+    font-size:18px;
+    margin-top:20px;
+}
+</style>
+</head>
+
+<body>
+<div class="container">
+<h1>Lesson 1 – Matching</h1>
+<p>Match the words with their meanings.</p>
+
+<div class="match">
+<span>Dictionary</span>
+<select id="m0">
+<option value="">Choose</option>
+<option value="a">A place to practice English</option>
+<option value="b">A book that explains word meanings</option>
+<option value="c">Making errors while learning</option>
+</select>
+</div>
+
+<div class="match">
+<span>Mistakes</span>
+<select id="m1">
+<option value="">Choose</option>
+<option value="a">Errors made while learning</option>
+<option value="b">Things in your house</option>
+<option value="c">A language skill</option>
+</select>
+</div>
+
+<div class="match">
+<span>Reading</span>
+<select id="m2">
+<option value="">Choose</option>
+<option value="a">Watching TV</option>
+<option value="b">Understanding written texts</option>
+<option value="c">Speaking clearly</option>
+</select>
+</div>
+
+<div class="match">
+<span>Practice</span>
+<select id="m3">
+<option value="">Choose</option>
+<option value="a">Using language often</option>
+<option value="b">Avoiding mistakes</option>
+<option value="c">Studying grammar only</option>
+</select>
+</div>
+
+<div class="match">
+<span>Every day</span>
+<select id="m4">
+<option value="">Choose</option>
+<option value="a">Sometimes</option>
+<option value="b">Once a week</option>
+<option value="c">Each day</option>
+</select>
+</div>
+
+<button onclick="check()">Submit</button>
+<div id="result"></div>
+</div>
+
+<script>
+const correct = ["b","a","b","a","c"];
+
+function check(){
+    let score = 0;
+
+    for(let i=0;i<correct.length;i++){
+        if(document.getElementById("m"+i).value === correct[i]){
+            score += 10;
+        }
+    }
+
+    localStorage.setItem("lesson1game4score", score);
+    localStorage.setItem("lesson1Completed", "true");
+
+    document.getElementById("result").innerHTML =
+    `✅ Score: ${score}/50<br>🎉 Lesson 1 Completed!`;
+}
+</script>
+</body>
+</html>

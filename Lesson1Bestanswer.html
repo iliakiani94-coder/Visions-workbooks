@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Best Answer Game</title>
+
+<style>
+body{
+    font-family:Arial;
+    background:radial-gradient(circle at top,#3b0764,#000);
+    color:white;
+    padding:30px;
+}
+.container{
+    max-width:800px;
+    margin:auto;
+    background:rgba(255,255,255,0.08);
+    padding:30px;
+    border-radius:30px;
+    box-shadow:0 25px 50px rgba(0,0,0,0.5);
+}
+h1{text-align:center;color:#f9a8d4;}
+.question{margin:20px 0;}
+select, button{
+    margin-top:10px;
+    padding:8px 15px;
+    border-radius:12px;
+    border:none;
+}
+button{
+    background:#ec4899;
+    color:white;
+    cursor:pointer;
+}
+.correct{color:#4ade80;}
+.wrong{color:#f87171;}
+.back{text-align:center;margin-top:30px;}
+</style>
+</head>
+
+<body>
+<div class="container">
+<h1>🎯 Best Answer</h1>
+
+<div class="question">1. Where can you learn about animals?
+<br>
+<select id="q1">
+<option>Choose...</option>
+<option>School</option>
+<option>National wildlife museum</option>
+<option>Airport</option>
+</select>
+<button onclick="check('q1','National wildlife museum','r1')">Check</button>
+<p id="r1"></p>
+</div>
+
+<div class="question">2. Who should you teach about animals?
+<br>
+<select id="q2">
+<option>Choose...</option>
+<option>Your friends and family</option>
+<option>Hunters</option>
+<option>Police</option>
+</select>
+<button onclick="check('q2','Your friends and family','r2')">Check</button>
+<p id="r2"></p>
+</div>
+
+<div class="question">3. What helps animals live longer?
+<br>
+<select id="q3">
+<option>Choose...</option>
+<option>Keeping nature clean</option>
+<option>Cutting trees</option>
+<option>Hunting</option>
+</select>
+<button onclick="check('q3','Keeping nature clean','r3')">Check</button>
+<p id="r3"></p>
+</div>
+
+<div class="question">4. Where can you do voluntary work?
+<br>
+<select id="q4">
+<option>Choose...</option>
+<option>Wildlife parks</option>
+<option>Shopping malls</option>
+<option>Airports</option>
+</select>
+<button onclick="check('q4','Wildlife parks','r4')">Check</button>
+<p id="r4"></p>
+</div>
+
+<div class="question">5. What should you protect?
+<br>
+<select id="q5">
+<option>Choose...</option>
+<option>Natural homes of animals</option>
+<option>Hunters</option>
+<option>Cars</option>
+</select>
+<button onclick="check('q5','Natural homes of animals','r5')">Check</button>
+<p id="r5"></p>
+</div>
+
+<div class="question">6. What should you do if you see hunters?
+<br>
+<select id="q6">
+<option>Choose...</option>
+<option>Run away</option>
+<option>Call the police</option>
+<option>Help them</option>
+</select>
+<button onclick="check('q6','Call the police','r6')">Check</button>
+<p id="r6"></p>
+</div>
+
+<div class="back">
+<a href="lesson1-games.html"><button>⬅ Back to Games</button></a>
+</div>
+</div>
+
+<script>
+function check(q,ans,r){
+ const u=document.getElementById(q).value;
+ document.getElementById(r).innerHTML=
+ (u===ans)? "<span class='correct'>Correct ✅</span>"
+          : "<span class='wrong'>Wrong ❌</span>";
+}
+</script>
+</body>
+</html>

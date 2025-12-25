@@ -1,0 +1,69 @@
+<meta name='viewport' content='width=device-width, initial-scale=1'/><!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Lesson 3 Games</title>
+
+<style>
+body{
+  margin:0;
+  font-family:Arial, sans-serif;
+  background:radial-gradient(circle at top,#1b0033,#000);
+  color:#fff;
+  text-align:center;
+}
+
+h1{
+  margin:40px 0;
+  color:#00CED1;
+}
+
+.games-container{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:25px;
+  max-width:800px;
+  margin:0 auto;
+  padding:20px;
+}
+
+.game-btn{
+  padding:20px;
+  border-radius:20px;
+  background:linear-gradient(135deg,#ff00cc,#3333ff);
+  color:#fff;
+  text-decoration:none;
+  font-size:20px;
+  font-weight:bold;
+  box-shadow:0 10px 25px rgba(0,0,0,0.5);
+  transition:0.3s;
+}
+
+.game-btn:hover{
+  transform:scale(1.07);
+}
+
+.back-btn{
+  display:inline-block;
+  margin:40px 0;
+  color:#aaa;
+  text-decoration:none;
+}
+</style>
+
+</head>
+<body>
+
+<h1>Lesson 3 Games</h1>
+
+<div class="games-container">
+  <a class="game-btn" href="truefalse3.html">Game1<br>True / False</a>
+  <a class="game-btn" href="bestanswer3.html">Game2<br>Best Answer</a>
+  <a class="game-btn" href="missingword3.html">Game3<br>Missing Words</a>
+  <a class="game-btn" href="match3.html">Game4<br>Matching</a>
+</div>
+
+<a class="back-btn" href="lesson3.html">⬅ Back to Lesson 3</a>
+
+</body>
+</html>
